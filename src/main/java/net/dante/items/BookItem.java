@@ -6,5 +6,16 @@ Denna klass innehåller även variabler och datan för BookItem, dvs alla böcke
 import net.dante.LibraryItem;
 
 public class BookItem extends LibraryItem{
-    
+
+    private String author;
+    private String genre;
+    private int pages;
+
+    public BookItem(String id, String title, boolean isAvailable, String author, String genre, int pages) {
+        super(id, title, isAvailable);
+        this.author = author;
+        this.genre = genre;
+        this.pages = pages;
+    }
+
 }
