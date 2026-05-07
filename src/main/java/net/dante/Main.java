@@ -3,7 +3,6 @@ package net.dante;
 public class Main {
     void main() {
 
-
             IO.println("""
             -----Biblioketsystem-----
             1. Lista bibliotekets böcker
