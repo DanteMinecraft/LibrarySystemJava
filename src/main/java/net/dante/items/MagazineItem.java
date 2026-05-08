@@ -18,6 +18,9 @@ public class MagazineItem extends LibraryItem{
         this.category = category;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return "Publiceringsnummer: " + issueNumber + "\nPubliceringsår: " + publishedYear + "\nKategori: "
+                + category + "\nID i system: " + getId() + "\nTitel: " + getTitle() + "\nFinns tillgänglig: " + isAvailable() + "\n";
+    }
 }

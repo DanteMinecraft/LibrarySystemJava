@@ -34,8 +34,7 @@ public abstract class LibraryItem {
 
     // Setters
 
-    // Temporary method. Planned to be replaced by borrowItem() and returnItem() in the future
-    @Deprecated
+    // Planned to be linked to borrowItem() and returnItem() in the future
     public void setAvailable(boolean isAvailable) {
         this.isAvailable = isAvailable;
     }

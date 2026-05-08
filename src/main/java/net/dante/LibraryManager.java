@@ -35,8 +35,8 @@ public class LibraryManager {
         try {
             response = Unirest.get(serverUrl + "/books").asString();
             String responseBody = response.getBody();
-            List<BookItem> fetched = gson.fromJson(responseBody, new TypeToken<List<BookItem>>(){}.getType());
-            books.addAll(fetched);
+            List<BookItem> fetchedBooks = gson.fromJson(responseBody, new TypeToken<List<BookItem>>(){}.getType());
+            books.addAll(fetchedBooks);
             IO.println("Hämtade data för böcker");
         } catch (UnirestException e) {
             IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
@@ -49,8 +49,8 @@ public class LibraryManager {
         try {
             response = Unirest.get(serverUrl + "/magazines").asString();
             String responseBody = response.getBody();
-            List<MagazineItem> fetched = gson.fromJson(responseBody, new TypeToken<List<MagazineItem>>(){}.getType());
-            magazines.addAll(fetched);
+            List<MagazineItem> fetchedMagazines = gson.fromJson(responseBody, new TypeToken<List<MagazineItem>>(){}.getType());
+            magazines.addAll(fetchedMagazines);
             IO.println("Hämtade data för magasin\n");
         } catch (UnirestException e) {
             IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
@@ -61,14 +61,19 @@ public class LibraryManager {
     public void listLibraryItems() {
         
         // print for every book and magazine in array
-        IO.println("Böcker:}\n");
+        IO.println("Böcker:\n");
         books.forEach(b -> IO.println(b));
-        IO.println("\n\nMagasin:}\n");
+        IO.println("\n\nMagasin:\n");
         magazines.forEach(m -> IO.println(m));
     }
 
     // Method for adding item to library
     public void addLibraryItem(LibraryItem libItem) {
+
+    }
+
+    // Method for removing item from library
+    public void removeLibraryItem(LibraryItem libItem) {
 
     }
 
