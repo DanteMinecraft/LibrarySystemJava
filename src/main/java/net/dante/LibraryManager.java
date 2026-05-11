@@ -35,7 +35,8 @@ public class LibraryManager {
         try {
             response = Unirest.get(serverUrl + "/books").asString();
             String responseBody = response.getBody();
-            List<BookItem> fetchedBooks = gson.fromJson(responseBody, new TypeToken<List<BookItem>>(){}.getType());
+            List<BookItem> fetchedBooks = gson.fromJson(responseBody, new TypeToken<List<BookItem>>() {
+            }.getType());
             books.addAll(fetchedBooks);
             IO.println("Hämtade data för böcker");
         } catch (UnirestException e) {
@@ -49,7 +50,8 @@ public class LibraryManager {
         try {
             response = Unirest.get(serverUrl + "/magazines").asString();
             String responseBody = response.getBody();
-            List<MagazineItem> fetchedMagazines = gson.fromJson(responseBody, new TypeToken<List<MagazineItem>>(){}.getType());
+            List<MagazineItem> fetchedMagazines = gson.fromJson(responseBody, new TypeToken<List<MagazineItem>>() {
+            }.getType());
             magazines.addAll(fetchedMagazines);
             IO.println("Hämtade data för magasin\n");
         } catch (UnirestException e) {
@@ -59,7 +61,7 @@ public class LibraryManager {
 
     // 3. List all books & magazines
     public void listLibraryItems() {
-        
+
         // print for every book and magazine in array (beautiful lambda expression :D)
         IO.println("Böcker:");
         books.forEach(b -> IO.println(b));
@@ -69,6 +71,46 @@ public class LibraryManager {
 
     // Method for adding item to library
     public void addLibraryItem(LibraryItem libItem) {
+
+        try {
+
+            // Boolean for type of item. if true = book, if false = magazine.
+            boolean itemType;
+
+            while (true) {
+
+                IO.println("""
+                            Vilken typ av föremål vill du lägga till i systemet?
+                            1. Bok
+                            2. Magasin
+                        """);
+
+                // String for user choice
+                String userChoice = IO.readln();
+
+                // Check if book or magazine, if not valid input ask again
+                if (userChoice.equals("1")) {
+                    itemType = true;
+                    IO.println("Du valde att lägga till en bok i systemet. Vänligen ange följande information:");
+                    break;
+
+                } else if (userChoice.equals("2")) {
+                    itemType = false;
+                    IO.println("Du valde att lägga till ett magasin i systemet. Vänligen ange följande information:");
+                    break;
+
+                } else {
+                    IO.println("Ogiltigt val, försök igen.");
+                }
+            }
+
+            IO.println("DEBUG - just nu är " + itemType);
+
+            // TODO: Expand when above works
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
     }
 

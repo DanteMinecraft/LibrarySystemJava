@@ -19,7 +19,7 @@ public class StartMenu {
                 case "1" -> manager.fetchBooks();
                 case "2" -> manager.fetchMagazines();
                 case "3" -> manager.listLibraryItems();
-                case "4" -> System.out.println("Placeholder :)");
+                case "4" -> manager.addLibraryItem(null);
                 case "5" -> System.out.println("Placeholder :)");
                 case "6" -> System.out.println("Placeholder :)");
             }
