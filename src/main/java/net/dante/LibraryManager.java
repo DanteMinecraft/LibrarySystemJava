@@ -60,10 +60,10 @@ public class LibraryManager {
     // 3. List all books & magazines
     public void listLibraryItems() {
         
-        // print for every book and magazine in array
-        IO.println("Böcker:\n");
+        // print for every book and magazine in array (beautiful lambda expression :D)
+        IO.println("Böcker:");
         books.forEach(b -> IO.println(b));
-        IO.println("\n\nMagasin:\n");
+        IO.println("\nMagasin:");
         magazines.forEach(m -> IO.println(m));
     }
 
