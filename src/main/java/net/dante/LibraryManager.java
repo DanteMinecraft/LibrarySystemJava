@@ -106,7 +106,27 @@ public class LibraryManager {
 
             IO.println("DEBUG - just nu är " + itemType);
 
-            // TODO: Expand when above works
+            IO.println("Titel: ");
+            String newItemTitle = IO.readln();
+
+            if (itemType = true) {
+                IO.println("Författare: ");
+                String newBookAuthor = IO.readln();
+
+                IO.println("Genre: ");
+                String newBookGenre = IO.readln();
+
+                IO.println("Antal sidor: ");
+                int newBookPages = Integer.parseInt(IO.readln());
+
+                // TODO: fixa automatisk id-hantering
+                BookItem newBook = new BookItem(null, newItemTitle, true, newBookAuthor, newBookGenre, newBookPages);
+                books.add(newBook);
+                
+            } else if (itemType = false) {
+                // TODO: fixa tillägg av magasin
+                
+            }
 
         } catch (Exception e) {
             // TODO: handle exception
