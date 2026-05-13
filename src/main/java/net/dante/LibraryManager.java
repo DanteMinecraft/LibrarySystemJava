@@ -73,6 +73,7 @@ public class LibraryManager {
     }
 
     // Method for adding item to library
+    // TODO: Add checks so program doesn't crash when invalid inputs
     public void addLibraryItem() {
 
         // Boolean for type of item. if true = book, if false = magazine.
