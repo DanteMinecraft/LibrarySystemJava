@@ -70,7 +70,7 @@ public class LibraryManager {
     }
 
     // Method for adding item to library
-    public void addLibraryItem(LibraryItem libItem) {
+    public void addLibraryItem() {
 
         try {
 
