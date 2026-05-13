@@ -153,7 +153,7 @@ public class LibraryManager {
     }
 
     // Method for removing item from library
-    public void removeLibraryItem(LibraryItem libItem) {
+    public void removeLibraryItem() {
 
     }
 
