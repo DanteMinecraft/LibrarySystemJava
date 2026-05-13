@@ -9,7 +9,7 @@ public class Main {
         StartMenu Menu = new StartMenu();
 
         while (true) {
-            Menu.StartMenu();
+            Menu.ShowMenu();
         }
     }
 }

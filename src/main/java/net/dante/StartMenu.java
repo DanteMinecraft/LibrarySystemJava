@@ -6,7 +6,7 @@ public class StartMenu {
 
     LibraryManager manager = new LibraryManager("http://localhost:3000");
 
-    public void StartMenu() {
+    public void ShowMenu() {
         IO.println("""
                         -----Biblioketsystem-----
                         1. Hämta data för samtliga böcker
