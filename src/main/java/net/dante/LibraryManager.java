@@ -126,7 +126,19 @@ public class LibraryManager {
                 books.add(newBook);
                 
             } else if (itemType = false) {
-                // TODO: fixa tillägg av magasin
+                IO.println("Utgåva: ");
+                int newMagazineIssueNumber = Integer.parseInt(IO.readln());
+
+                IO.println("Publiceringsår: ");
+                int newMagazinePublicationYear = Integer.parseInt(IO.readln());
+
+                IO.println("Kategori: ");
+                String newMagazineCategory = IO.readln();
+
+                String newMagazineId = String.valueOf(magazines.size() + 1); // TODO: Make sure items are fetched before generating id
+
+                MagazineItem newMagazine = new MagazineItem(newMagazineId, newItemTitle, true, newMagazineIssueNumber, newMagazinePublicationYear, newMagazineCategory);
+                magazines.add(newMagazine);
                 
             }
 

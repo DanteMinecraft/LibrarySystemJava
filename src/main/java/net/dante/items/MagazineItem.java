@@ -20,7 +20,7 @@ public class MagazineItem extends LibraryItem{
 
     @Override
     public String toString() {
-        return "Publiceringsnummer: " + issueNumber + "\nPubliceringsår: " + publishedYear + "\nKategori: "
+        return "Utgåva: " + issueNumber + "\nPubliceringsår: " + publishedYear + "\nKategori: "
                 + category + "\nID i system: " + getId() + "\nTitel: " + getTitle() + "\nFinns tillgänglig: " + isAvailable() + "\n";
     }
 }
