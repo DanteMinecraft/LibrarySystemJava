@@ -63,7 +63,7 @@ public class LibraryManager {
     public void listLibraryItems() {
 
         // print for every book and magazine in array (beautiful lambda expression :D)
-        IO.println("Böcker:");
+        IO.println("\nBöcker:");
         books.forEach(b -> IO.println(b));
         IO.println("\nMagasin:");
         magazines.forEach(m -> IO.println(m));
@@ -104,12 +104,13 @@ public class LibraryManager {
 
         // TODO: Move add logic to own class
 
-        IO.println("Titel på bok: ");
-        String newItemTitle = IO.readln();
-
         if (itemType == true) {
 
             // Logic for adding book
+
+            IO.println("Titel på bok: ");
+            String newBookTitle = IO.readln();
+
             IO.println("Författare: ");
             String newBookAuthor = IO.readln();
 
@@ -121,13 +122,17 @@ public class LibraryManager {
 
             String newBookId = String.valueOf(books.size() + 1); // TODO: check if fetched prior to creating id
 
-            BookItem newBook = new BookItem(newBookId, newItemTitle, true, newBookAuthor, newBookGenre,
+            BookItem newBook = new BookItem(newBookId, newBookTitle, true, newBookAuthor, newBookGenre,
                     newBookPages);
             books.add(newBook);
 
         } else if (itemType == false) {
 
             // Logic for adding magazine
+
+            IO.println("Titel på magasin: ");
+            String newMagazineTitle = IO.readln();
+
             IO.println("Utgåva: ");
             int newMagazineIssueNumber = Integer.parseInt(IO.readln());
 
@@ -139,7 +144,7 @@ public class LibraryManager {
 
             String newMagazineId = String.valueOf(magazines.size() + 1); // TODO: check if fetched prior to creating id
 
-            MagazineItem newMagazine = new MagazineItem(newMagazineId, newItemTitle, true, newMagazineIssueNumber,
+            MagazineItem newMagazine = new MagazineItem(newMagazineId, newMagazineTitle, true, newMagazineIssueNumber,
                     newMagazinePublicationYear, newMagazineCategory);
             magazines.add(newMagazine);
 
