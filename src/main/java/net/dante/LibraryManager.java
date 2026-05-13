@@ -107,7 +107,7 @@ public class LibraryManager {
         IO.println("Titel på bok: ");
         String newItemTitle = IO.readln();
 
-        if (itemType = true) {
+        if (itemType == true) {
 
             // Logic for adding book
             IO.println("Författare: ");
@@ -125,7 +125,7 @@ public class LibraryManager {
                     newBookPages);
             books.add(newBook);
 
-        } else if (itemType = false) {
+        } else if (itemType == false) {
 
             // Logic for adding magazine
             IO.println("Utgåva: ");
