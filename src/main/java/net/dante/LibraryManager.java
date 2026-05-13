@@ -37,8 +37,8 @@ public class LibraryManager {
             String responseBody = response.getBody();
             List<BookItem> fetchedBooks = gson.fromJson(responseBody, new TypeToken<List<BookItem>>() {
             }.getType());
-            books.addAll(fetchedBooks);
-            IO.println("Hämtade data för böcker");
+            books.addAll(fetchedBooks); //adds all the books from the fetch
+            IO.println("Hämtade data för böcker\n");
         } catch (UnirestException e) {
             IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
         }
@@ -104,9 +104,10 @@ public class LibraryManager {
                 }
             }
 
-            IO.println("DEBUG - just nu är " + itemType);
+            // Logic for adding book
+            // TODO: Move add logic to own class
 
-            IO.println("Titel: ");
+            IO.println("Titel på bok: ");
             String newItemTitle = IO.readln();
 
             if (itemType = true) {
@@ -119,8 +120,9 @@ public class LibraryManager {
                 IO.println("Antal sidor: ");
                 int newBookPages = Integer.parseInt(IO.readln());
 
-                // TODO: fixa automatisk id-hantering
-                BookItem newBook = new BookItem(null, newItemTitle, true, newBookAuthor, newBookGenre, newBookPages);
+                String newBookId = String.valueOf(books.size() + 1); // TODO: Make sure items are fetched before generating id
+
+                BookItem newBook = new BookItem(newBookId, newItemTitle, true, newBookAuthor, newBookGenre, newBookPages);
                 books.add(newBook);
                 
             } else if (itemType = false) {
