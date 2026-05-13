@@ -1,5 +1,8 @@
 package net.dante;
 
+/*Klass som innehåller all logik i hur programmet fungerar.
+Innehåller metoder som hämtar data, listar data, och lägger till data i systemet. */
+
 import java.util.ArrayList;
 import java.util.List;
 

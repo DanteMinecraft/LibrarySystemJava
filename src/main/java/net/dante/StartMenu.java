@@ -1,5 +1,7 @@
 package net.dante;
 
+/*Klass som innehåller programmets huvudmeny*/
+
 public class StartMenu {
 
     LibraryManager manager = new LibraryManager("http://localhost:3000");
