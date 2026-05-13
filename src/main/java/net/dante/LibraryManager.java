@@ -37,7 +37,7 @@ public class LibraryManager {
             String responseBody = response.getBody();
             List<BookItem> fetchedBooks = gson.fromJson(responseBody, new TypeToken<List<BookItem>>() {
             }.getType());
-            books.addAll(fetchedBooks); //adds all the books from the fetch
+            books.addAll(fetchedBooks); // adds all the books from the fetch
             IO.println("Hämtade data för böcker\n");
         } catch (UnirestException e) {
             IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
@@ -72,78 +72,77 @@ public class LibraryManager {
     // Method for adding item to library
     public void addLibraryItem() {
 
-        try {
+        // Boolean for type of item. if true = book, if false = magazine.
+        boolean itemType;
 
-            // Boolean for type of item. if true = book, if false = magazine.
-            boolean itemType;
+        while (true) {
 
-            while (true) {
+            IO.println("""
+                        Vilken typ av föremål vill du lägga till i systemet?
+                        1. Bok
+                        2. Magasin
+                    """);
 
-                IO.println("""
-                            Vilken typ av föremål vill du lägga till i systemet?
-                            1. Bok
-                            2. Magasin
-                        """);
+            // String for user choice
+            String userChoice = IO.readln();
 
-                // String for user choice
-                String userChoice = IO.readln();
+            // Check if book or magazine, if not valid input ask again
+            if (userChoice.equals("1")) {
+                itemType = true;
+                IO.println("Du valde att lägga till en bok i systemet. Vänligen ange följande information:");
+                break;
 
-                // Check if book or magazine, if not valid input ask again
-                if (userChoice.equals("1")) {
-                    itemType = true;
-                    IO.println("Du valde att lägga till en bok i systemet. Vänligen ange följande information:");
-                    break;
+            } else if (userChoice.equals("2")) {
+                itemType = false;
+                IO.println("Du valde att lägga till ett magasin i systemet. Vänligen ange följande information:");
+                break;
 
-                } else if (userChoice.equals("2")) {
-                    itemType = false;
-                    IO.println("Du valde att lägga till ett magasin i systemet. Vänligen ange följande information:");
-                    break;
-
-                } else {
-                    IO.println("Ogiltigt val, försök igen.");
-                }
+            } else {
+                IO.println("Ogiltigt val, försök igen.");
             }
+        }
+
+        // TODO: Move add logic to own class
+
+        IO.println("Titel på bok: ");
+        String newItemTitle = IO.readln();
+
+        if (itemType = true) {
 
             // Logic for adding book
-            // TODO: Move add logic to own class
+            IO.println("Författare: ");
+            String newBookAuthor = IO.readln();
 
-            IO.println("Titel på bok: ");
-            String newItemTitle = IO.readln();
+            IO.println("Genre: ");
+            String newBookGenre = IO.readln();
 
-            if (itemType = true) {
-                IO.println("Författare: ");
-                String newBookAuthor = IO.readln();
+            IO.println("Antal sidor: ");
+            int newBookPages = Integer.parseInt(IO.readln());
 
-                IO.println("Genre: ");
-                String newBookGenre = IO.readln();
+            String newBookId = String.valueOf(books.size() + 1); // TODO: check if fetched prior to creating id
 
-                IO.println("Antal sidor: ");
-                int newBookPages = Integer.parseInt(IO.readln());
+            BookItem newBook = new BookItem(newBookId, newItemTitle, true, newBookAuthor, newBookGenre,
+                    newBookPages);
+            books.add(newBook);
 
-                String newBookId = String.valueOf(books.size() + 1); // TODO: Make sure items are fetched before generating id
+        } else if (itemType = false) {
 
-                BookItem newBook = new BookItem(newBookId, newItemTitle, true, newBookAuthor, newBookGenre, newBookPages);
-                books.add(newBook);
-                
-            } else if (itemType = false) {
-                IO.println("Utgåva: ");
-                int newMagazineIssueNumber = Integer.parseInt(IO.readln());
+            // Logic for adding magazine
+            IO.println("Utgåva: ");
+            int newMagazineIssueNumber = Integer.parseInt(IO.readln());
 
-                IO.println("Publiceringsår: ");
-                int newMagazinePublicationYear = Integer.parseInt(IO.readln());
+            IO.println("Publiceringsår: ");
+            int newMagazinePublicationYear = Integer.parseInt(IO.readln());
 
-                IO.println("Kategori: ");
-                String newMagazineCategory = IO.readln();
+            IO.println("Kategori: ");
+            String newMagazineCategory = IO.readln();
 
-                String newMagazineId = String.valueOf(magazines.size() + 1); // TODO: Make sure items are fetched before generating id
+            String newMagazineId = String.valueOf(magazines.size() + 1); // TODO: check if fetched prior to creating id
 
-                MagazineItem newMagazine = new MagazineItem(newMagazineId, newItemTitle, true, newMagazineIssueNumber, newMagazinePublicationYear, newMagazineCategory);
-                magazines.add(newMagazine);
-                
-            }
+            MagazineItem newMagazine = new MagazineItem(newMagazineId, newItemTitle, true, newMagazineIssueNumber,
+                    newMagazinePublicationYear, newMagazineCategory);
+            magazines.add(newMagazine);
 
-        } catch (Exception e) {
-            // TODO: handle exception
         }
 
     }
