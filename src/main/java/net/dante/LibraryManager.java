@@ -170,7 +170,6 @@ public class LibraryManager {
         users.add(newUser);
     }
 
-    
     // 6. Method for adding user to system
     public void suspendUser() {
 
@@ -182,7 +181,7 @@ public class LibraryManager {
 
         String newSuspendedId = String.valueOf(suspendedUsers.size() + 1); // TODO: check if fetched prior to creating id
 
-        SuspendedUser newSuspendedUser = new SuspendedUser(newUserIdForSuspended, newSuspendedUserReason, newSuspendedId);
+        SuspendedUser newSuspendedUser = new SuspendedUser(newSuspendedId, newUserIdForSuspended, newSuspendedUserReason);
         suspendedUsers.add(newSuspendedUser);
     }
 

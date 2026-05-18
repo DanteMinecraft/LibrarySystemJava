@@ -34,5 +34,4 @@ public class SuspendedUser {
     public String toString() {
         return "Anledning: " + reason + "\nAnvändarens ID i system: " + userId + "\nAvstängnings-ID i system: " + userId + "\n";
     }
-    
 }
