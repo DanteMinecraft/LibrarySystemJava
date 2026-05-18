@@ -21,7 +21,7 @@ public class LibraryManager {
     private ArrayList<BookItem> books = new ArrayList<>();
     private ArrayList<MagazineItem> magazines = new ArrayList<>();
     private ArrayList<User> users = new ArrayList<>();
-    // private ArrayList<SuspendedUser> suspendedUser = new ArrayList<>();
+    private ArrayList<SuspendedUser> suspendedUsers = new ArrayList<>();
 
     private Gson gson = new Gson();
 
@@ -168,6 +168,33 @@ public class LibraryManager {
 
         User newUser = new User(newUserId, newUserName, newUserEmail);
         users.add(newUser);
+    }
+
+    
+    // 6. Method for adding user to system
+    public void suspendUser() {
+
+        IO.println("ID på användaren som ska stängas av: ");
+        String newUserIdForSuspended = IO.readln();
+
+        IO.println("Anledning: ");
+        String newSuspendedUserReason = IO.readln();
+
+        String newSuspendedId = String.valueOf(suspendedUsers.size() + 1); // TODO: check if fetched prior to creating id
+
+        SuspendedUser newSuspendedUser = new SuspendedUser(newUserIdForSuspended, newSuspendedUserReason, newSuspendedId);
+        suspendedUsers.add(newSuspendedUser);
+    }
+
+    
+    // 7. List all users & suspended users
+    public void listAllUsers() {
+
+        // print for every user and suspended user in array (beautiful lambda expression  (again) :D)
+        IO.println("\nAnvändare:");
+        users.forEach(u -> IO.println(u));
+        IO.println("\nAvstängda användare:");
+        suspendedUsers.forEach(su -> IO.println(su));
     }
 
     // Method for removing item from library

@@ -14,8 +14,9 @@ public class StartMenu {
                         3. Lista bibliotekets böcker och magasin
                         4. Registrera nytt föremål i systemet
                         5. Registrera ny användare i systemet
-                        6. Registrera ny avstängd användare i systemet
-                        7. Avsluta programmet
+                        6. Stäng av användare i systemet
+                        7. Lista alla användare samt avstängda användare
+                        8. Avsluta programmet
                     """);
 
             switch (IO.readln()) {
@@ -24,8 +25,9 @@ public class StartMenu {
                 case "3" -> manager.listLibraryItems();
                 case "4" -> manager.addLibraryItem();
                 case "5" -> manager.addUser();
-                case "6" -> IO.println("Placeholder för att registrera avstängd användare");
-                case "7" -> {
+                case "6" -> manager.suspendUser();
+                case "7" -> manager.listAllUsers();
+                case "8" -> {
                     IO.println("Avslutar programmet...");
                     System.exit(0);
                 }
