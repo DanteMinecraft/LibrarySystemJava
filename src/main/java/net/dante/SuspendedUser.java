@@ -18,8 +18,8 @@ public class SuspendedUser {
     public String getSuspendedId() {
         return suspendedId;
     }
-
-    public String getUserId() {
+    
+    public String getSuspendedUsersID() {
         return userId;
     }
 
@@ -28,6 +28,11 @@ public class SuspendedUser {
     }
 
     // Setters (for future use)
+    //blank
 
+    @Override
+    public String toString() {
+        return "Anledning: " + reason + "\nAnvändarens ID i system: " + userId + "\nAvstängnings-ID i system: " + userId + "\n";
+    }
     
 }
