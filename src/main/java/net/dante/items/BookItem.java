@@ -23,4 +23,4 @@ public class BookItem extends LibraryItem{
         return "Författare: " + author + "\nGenre: " + genre + "\nAntal sidor: " + pages + "\nID i system: " + getId()
                 + "\nTitel: " + getTitle() + "\nFinns tillgänglig: " + isAvailable() + "\n";
     }
-} 
+}

@@ -20,7 +20,7 @@ public class LibraryManager {
 
     private ArrayList<BookItem> books = new ArrayList<>();
     private ArrayList<MagazineItem> magazines = new ArrayList<>();
-    // private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
     // private ArrayList<SuspendedUser> suspendedUser = new ArrayList<>();
 
     private Gson gson = new Gson();
@@ -72,7 +72,7 @@ public class LibraryManager {
         magazines.forEach(m -> IO.println(m));
     }
 
-    // Method for adding item to library
+    // 4. Method for adding item to library
     // TODO: Add checks so program doesn't crash when invalid inputs
     public void addLibraryItem() {
 
@@ -153,7 +153,21 @@ public class LibraryManager {
             magazines.add(newMagazine);
 
         }
+    }
 
+    // 5. Method for adding user to system
+    public void addUser() {
+
+        IO.println("Användarnamn: ");
+        String newUserName = IO.readln();
+
+        IO.println("Användarens mejladress: ");
+        String newUserEmail = IO.readln();
+
+        String newUserId = String.valueOf(users.size() + 1); // TODO: check if fetched prior to creating id
+
+        User newUser = new User(newUserId, newUserName, newUserEmail);
+        users.add(newUser);
     }
 
     // Method for removing item from library
