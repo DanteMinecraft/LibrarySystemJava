@@ -1,5 +1,8 @@
 package net.dante;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+
 /*Klass som innehåller all logik i hur programmet fungerar.
 Innehåller metoder som hämtar data, listar data, och lägger till data i systemet. */
 
@@ -7,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
+import kong.unirest.core.HttpRequest;
 import kong.unirest.core.HttpResponse;
 import kong.unirest.core.Unirest;
 import kong.unirest.core.UnirestException;
@@ -164,10 +169,11 @@ public class LibraryManager {
         IO.println("Användarens mejladress: ");
         String newUserEmail = IO.readln();
 
-        String newUserId = String.valueOf(users.size() + 1); // TODO: check if fetched prior to creating id
+        String newUserId = String.valueOf(users.size() + 101); // TODO: check if fetched prior to creating id
 
         User newUser = new User(newUserId, newUserName, newUserEmail);
-        users.add(newUser);
+        users.add(newUser); // add user in local list
+        uploadUser(newUser); // add user to server
     }
 
     // 6. Method for adding user to system
@@ -179,7 +185,7 @@ public class LibraryManager {
         IO.println("Anledning: ");
         String newSuspendedUserReason = IO.readln();
         
-        String newSuspendedId = String.valueOf(suspendedUsers.size() + 1); // TODO: check if fetched prior to creating id
+        String newSuspendedId = String.valueOf(suspendedUsers.size() + 1); // TODO: fix this, auto id is ok
         
         boolean removed = users.removeIf(u -> u.getUserId().equals(newUserIdForSuspended)); // Removes newly suspended user from regular user-array (beautiful lambda again)
 
@@ -203,9 +209,44 @@ public class LibraryManager {
         suspendedUsers.forEach(su -> IO.println(su));
     }
 
-    // Method for removing item from library
-    public void removeLibraryItem() {
+    // ==================================
+    // UPLOAD TO SERVER METHODS AND STUFF
+    // ==================================
 
+    // fetch all users from server
+    
+    public void fetchUsers() {
+        HttpResponse<String> response;
+        try {
+            response = Unirest.get(serverUrl + "/users").asString();
+            String responseBody = response.getBody();
+            List<User> fetchedUsers = gson.fromJson(responseBody, new TypeToken<List<User>>() {
+            }.getType());
+            users.addAll(fetchedUsers);
+            IO.println("Hämtade data för users\n");
+        } catch (UnirestException e) {
+            IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
+        }
+    }
+
+    // helper method to add any object to server (using Object data for flexibility)
+    private void toJson(String endpoint, Object data) {
+        try {
+            String json = gson.toJson(data);
+            Unirest.post(serverUrl + endpoint)
+            .header("placeholder", "application/json") //TODO: replace placeholder with actual text
+            .body(json)
+            .asString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //upload methods
+    public void uploadUser(User user) {
+        fetchUsers(); // fetch users before adding local ones to server
+        toJson("/users", user);
     }
 
 }

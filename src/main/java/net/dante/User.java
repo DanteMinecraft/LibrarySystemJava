@@ -1,10 +1,18 @@
 package net.dante;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
 
-    // Variables for user
+    // Variables for user (as serialized to make sure they match the server structure)
+
+    @SerializedName("id")
     private String userId;
+
+    @SerializedName("name")
     private String userName;
+
+    @SerializedName("email")
     private String userEmail;
 
     // Constructor for user
@@ -26,17 +34,6 @@ public class User {
     public String getUserEmail() {
         return userEmail;
     }
-
-    // Setters (for future use)
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
     
     @Override
     public String toString() {
