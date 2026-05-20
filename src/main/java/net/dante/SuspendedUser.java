@@ -5,12 +5,16 @@ public class SuspendedUser {
     // Variables for user
     private String suspendedId;
     private String userId;
+    private String userName;
+    private String userEmail;
     private String reason;
 
     // Constructor for user
-    public SuspendedUser(String suspendedId, String userId, String reason) {
+    public SuspendedUser(String suspendedId, User user, String reason) {
         this.suspendedId = suspendedId;
-        this.userId = userId;
+        this.userId = user.getUserId();
+        this.userName = user.getUserName();
+        this.userEmail = user.getUserEmail();
         this.reason = reason;
     }
 
@@ -18,9 +22,17 @@ public class SuspendedUser {
     public String getSuspendedId() {
         return suspendedId;
     }
-    
-    public String getSuspendedUsersID() {
+
+    public String getUserId() {
         return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
     }
 
     public String getReason() {
@@ -32,6 +44,6 @@ public class SuspendedUser {
 
     @Override
     public String toString() {
-        return "Anledning: " + reason + "\nAnvändarens ID i system: " + userId + "\nAvstängnings-ID i system: " + userId + "\n";
+        return "Användarnamn: " + userName + "\nMejladress: " + userEmail + "\nAnvändarens ID i system: " + userId + "\nAnledning: " + reason + "\nAvstängnings-ID i system: " + suspendedId + "\n";
     }
 }

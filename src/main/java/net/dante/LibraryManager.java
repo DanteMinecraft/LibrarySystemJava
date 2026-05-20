@@ -178,10 +178,17 @@ public class LibraryManager {
 
         IO.println("Anledning: ");
         String newSuspendedUserReason = IO.readln();
-
+        
         String newSuspendedId = String.valueOf(suspendedUsers.size() + 1); // TODO: check if fetched prior to creating id
+        
+        boolean removed = users.removeIf(u -> u.getUserId().equals(newUserIdForSuspended)); // Removes newly suspended user from regular user-array (beautiful lambda again)
 
-        SuspendedUser newSuspendedUser = new SuspendedUser(newSuspendedId, newUserIdForSuspended, newSuspendedUserReason);
+        if (!removed) {
+            IO.println("Ingen användare med det ID:t hittades.");
+            return;
+        }
+
+        SuspendedUser newSuspendedUser = new SuspendedUser(newSuspendedId, new User(newUserIdForSuspended, "", ""), newSuspendedUserReason);
         suspendedUsers.add(newSuspendedUser);
     }
 
@@ -189,7 +196,7 @@ public class LibraryManager {
     // 7. List all users & suspended users
     public void listAllUsers() {
 
-        // print for every user and suspended user in array (beautiful lambda expression  (again) :D)
+        // print for every user and suspended user in array (beautiful lambda expression  (again, again) :D)
         IO.println("\nAnvändare:");
         users.forEach(u -> IO.println(u));
         IO.println("\nAvstängda användare:");
