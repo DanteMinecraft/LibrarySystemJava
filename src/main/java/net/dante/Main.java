@@ -6,12 +6,12 @@ till andra klasser som hanterar programmets logik */
 public class Main {
     void main() {
 
-        StartMenu Menu = new StartMenu();
-
-        Menu.FetchAll();
+        GsonHandler gsonHandler = new GsonHandler("http://localhost:3000");
+        LibraryManager manager = new LibraryManager(gsonHandler);
+        StartMenu menu = new StartMenu(manager);
 
         while (true) {
-            Menu.ShowMenu();
+            menu.ShowMenu();
         }
     }
 }

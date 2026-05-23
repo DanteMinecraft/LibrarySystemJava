@@ -4,33 +4,25 @@ package net.dante;
 Innehåller metoder som hämtar data, listar data, och lägger till data i systemet. */
 
 import java.util.ArrayList;
-import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import kong.unirest.core.HttpResponse;
-import kong.unirest.core.Unirest;
-import kong.unirest.core.UnirestException;
 import net.dante.items.BookItem;
 import net.dante.items.MagazineItem;
 
 public class LibraryManager {
 
-    private ArrayList<BookItem> books = new ArrayList<>();
-    private ArrayList<MagazineItem> magazines = new ArrayList<>();
-    private ArrayList<User> users = new ArrayList<>();
-    private ArrayList<SuspendedUser> suspendedUsers = new ArrayList<>();
+    private ArrayList<BookItem> books;
+    private ArrayList<MagazineItem> magazines;
+    private ArrayList<User> users;
+    private ArrayList<SuspendedUser> suspendedUsers;
 
-    private Gson gson = new Gson();
+    GsonHandler gsonHandler;
 
-    // ===================
-    // SERVER URL HANDLING
-    // ===================
-    private String serverUrl;
-
-    public LibraryManager(String serverUrl) {
-        this.serverUrl = serverUrl;
+    public LibraryManager(GsonHandler gsonHandler) {
+        this.gsonHandler = gsonHandler;
+        this.books = gsonHandler.fetchBooks();
+        this.magazines = gsonHandler.fetchMagazines();
+        this.users = gsonHandler.fetchUsers();
+        this.suspendedUsers = gsonHandler.fetchSuspendedUsers();
     }
 
     // ================
@@ -106,12 +98,10 @@ public class LibraryManager {
             IO.println("Antal sidor: ");
             int newBookPages = Integer.parseInt(IO.readln());
 
-            String newBookId = String.valueOf(books.size() + 1); // TODO: check if fetched prior to creating id
-
-            BookItem newBook = new BookItem(newBookId, newBookTitle, true, newBookAuthor, newBookGenre,
+            BookItem newBook = new BookItem(newBookTitle, true, newBookAuthor, newBookGenre,
                     newBookPages);
             books.add(newBook); //local
-            uploadBook(newBook); // upload to server
+            gsonHandler.uploadBook(newBook); // upload to server
 
         } else if (itemType == false) {
 
@@ -128,13 +118,11 @@ public class LibraryManager {
 
             IO.println("Kategori: ");
             String newMagazineCategory = IO.readln();
-            
-            String newMagazineId = String.valueOf(magazines.size() + 1); // TODO: check if fetched prior to creating id
 
-            MagazineItem newMagazine = new MagazineItem(newMagazineId, newMagazineTitle, true, newMagazineIssueNumber,
+            MagazineItem newMagazine = new MagazineItem(newMagazineTitle, true, newMagazineIssueNumber,
                     newMagazinePublicationYear, newMagazineCategory);
             magazines.add(newMagazine); // local
-            uploadMagazine(newMagazine); // upload to server
+            gsonHandler.uploadMagazine(newMagazine); // upload to server
 
         }
     }
@@ -149,7 +137,7 @@ public class LibraryManager {
 
         User newUser = new User(null, newUserName, newUserEmail);
         users.add(newUser); // local
-        uploadUser(newUser); // upload to server
+        gsonHandler.uploadUser(newUser); // upload to server
     }
 
     public void suspendUser() {
@@ -169,104 +157,10 @@ public class LibraryManager {
 
         SuspendedUser newSuspendedUser = new SuspendedUser(null, new User(newUserIdForSuspended, "", ""), newSuspendedUserReason);
         suspendedUsers.add(newSuspendedUser);
-        uploadSuspendedUser(newSuspendedUser);
-    }
-
-    // ==================================
-    // FETCH METHODS
-    // ==================================
-
-    public void fetchBooks() {
-        HttpResponse<String> response;
-        try {
-            response = Unirest.get(serverUrl + "/books").asString();
-            String responseBody = response.getBody();
-            List<BookItem> fetchedBooks = gson.fromJson(responseBody, new TypeToken<List<BookItem>>() {
-            }.getType());
-            books.addAll(fetchedBooks); // adds all the books from the fetch
-            IO.println("Hämtade data för böcker\n");
-        } catch (UnirestException e) {
-            IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
-        }
-    }
-
-    public void fetchMagazines() {
-        HttpResponse<String> response;
-        try {
-            response = Unirest.get(serverUrl + "/magazines").asString();
-            String responseBody = response.getBody();
-            List<MagazineItem> fetchedMagazines = gson.fromJson(responseBody, new TypeToken<List<MagazineItem>>() {
-            }.getType());
-            magazines.addAll(fetchedMagazines);
-            IO.println("Hämtade data för magasin\n");
-        } catch (UnirestException e) {
-            IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
-        }
-    }
-    
-    public void fetchUsers() {
-        HttpResponse<String> response;
-        try {
-            response = Unirest.get(serverUrl + "/users").asString();
-            String responseBody = response.getBody();
-            List<User> fetchedUsers = gson.fromJson(responseBody, new TypeToken<List<User>>() {
-            }.getType());
-            users.addAll(fetchedUsers);
-            IO.println("Hämtade data för users\n");
-        } catch (UnirestException e) {
-            IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
-        }
-    }
-
-    public void fetchSuspendedUsers() {
-        HttpResponse<String> response;
-        try {
-            response = Unirest.get(serverUrl + "/suspended").asString();
-            String responseBody = response.getBody();
-            List<SuspendedUser> fetchedSuspendedUsers = gson.fromJson(responseBody, new TypeToken<List<SuspendedUser>>() {
-            }.getType());
-            suspendedUsers.addAll(fetchedSuspendedUsers);
-            IO.println("Hämtade data för users\n");
-        } catch (UnirestException e) {
-            IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
-        }
+        gsonHandler.uploadSuspendedUser(newSuspendedUser);
     }
 
     // ===============
     // UPLOAD METHODS
     // ===============
-    
-    public void uploadBook(BookItem book) {
-        toJson("/books", book);
-    }
-
-    public void uploadMagazine(MagazineItem magazine) {
-        toJson("/magazines", magazine);
-    }
-
-    public void uploadUser(User user) {
-        toJson("/users", user);
-    }
-
-    public void uploadSuspendedUser(SuspendedUser suspendedUser) {
-        toJson("/suspended", suspendedUser);
-    }
-    
-    // ==================================
-    // HELPER METHODS AND OTHER STUFF
-    // ==================================
-
-    // helper for uploading stuff
-    private void toJson(String endpoint, Object data) {
-        try {
-            String json = gson.toJson(data);
-            Unirest.post(serverUrl + endpoint)
-            .header("Content-type", "application/json")
-            .body(json)
-            .asString();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
