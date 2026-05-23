@@ -220,10 +220,21 @@ public class LibraryManager {
             IO.println("Ingen användare med den mejladressen hittades.");
             return;
         }
+
+        SuspendedUser foundSuspendedUser = suspendedUsers.stream()
+            .filter(su -> su.getUserId().equals(foundUser.getUserId()))
+            .findFirst()
+            .orElse(null);
+
+        if(foundSuspendedUser != null) {
+            gsonHandler.deleteSuspendedUser(foundSuspendedUser.getSuspendedId());
+        }
+
+        gsonHandler.deleteUser(foundUser.getUserId());
         
         IO.println("Användaren " + foundUser.getUserName() + " togs bort.");
 
-        gsonHandler.deleteUser(foundUser.getUserId());
         users.remove(foundUser);
+        suspendedUsers.remove(foundSuspendedUser);
     }
 }

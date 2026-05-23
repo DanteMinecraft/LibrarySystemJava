@@ -130,8 +130,15 @@ public class GsonHandler {
         try {
             
             Unirest.delete(serverUrl + "/users/" + userId).asString();
-            Unirest.delete(serverUrl + "/suspended/" + userId).asString();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteSuspendedUser(String suspendedId) {
+        try {
+            Unirest.delete(serverUrl + "/suspended/" + suspendedId).asString();
         } catch (Exception e) {
             e.printStackTrace();
         }
