@@ -4,6 +4,7 @@ package net.dante;
 Innehåller metoder som hämtar data, listar data, och lägger till data i systemet. */
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import net.dante.items.BookItem;
 import net.dante.items.LibraryItem;
@@ -42,15 +43,23 @@ public class LibraryManager {
 
     public void listLibraryItems() {
 
+        Collections.sort(books);
+        Collections.sort(magazines);
+
         IO.println("\nBöcker:");
         books.forEach(b -> IO.println(b));
+
         IO.println("\nMagasin:");
         magazines.forEach(m -> IO.println(m));
     }
 
     public void listAllUsers() {
+
+        Collections.sort(users);
+
         IO.println("\nAnvändare:");
         users.forEach(u -> IO.println(u));
+
         IO.println("\nAvstängda användare:");
         suspendedUsers.forEach(su -> IO.println(su));
     }

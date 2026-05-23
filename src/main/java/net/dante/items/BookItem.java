@@ -1,6 +1,6 @@
 package net.dante.items;
 
-public class BookItem extends LibraryItem{
+public class BookItem extends LibraryItem {
 
     private String author;
     private String genre;

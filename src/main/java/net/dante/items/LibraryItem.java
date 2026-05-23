@@ -5,7 +5,7 @@ Innehåller alla gemensamma parametrar och variabler för klasserna.
 Klassen är en abstract class för att se till att inga objekt som är endast LibraryItem:s skapas,
 utan ett LibraryItem måste vara någon av child-klasserna (dvs BookItem eller MagazineItem).*/
 
-public abstract class LibraryItem {
+public abstract class LibraryItem implements Comparable<LibraryItem>{
 
     // Variabels
     private String id;
@@ -36,6 +36,11 @@ public abstract class LibraryItem {
     // Planned to be linked to borrowItem() and returnItem() in the future
     public void setAvailable(boolean isAvailable) {
         this.isAvailable = isAvailable;
+    }
+
+    @Override
+    public int compareTo(LibraryItem other) {
+        return this.title.compareToIgnoreCase(other.title);
     }
 
 }

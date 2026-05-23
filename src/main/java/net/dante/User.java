@@ -2,7 +2,7 @@ package net.dante;
 
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class User implements Comparable<User> {
 
     // Variables for user (as serialized to make sure they match the server structure)
 
@@ -35,6 +35,11 @@ public class User {
     @Override
     public String toString() {
         return "Användarnamn: " + userName + "\nMejladress: " + userEmail + "\nAnvändarens ID i system: " + userId + "\n";
+    }
+
+    @Override
+    public int compareTo(User other) {
+        return this.userName.compareToIgnoreCase(other.userName);
     }
     
 }
