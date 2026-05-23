@@ -1,4 +1,6 @@
-package net.dante.items;
+package net.dante.items.analog;
+
+import net.dante.items.LibraryItem;
 
 public class MagazineItem extends LibraryItem{
 

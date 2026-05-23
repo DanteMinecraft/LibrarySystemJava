@@ -12,8 +12,8 @@ import com.google.gson.reflect.TypeToken;
 import kong.unirest.core.HttpResponse;
 import kong.unirest.core.Unirest;
 import kong.unirest.core.UnirestException;
-import net.dante.items.BookItem;
-import net.dante.items.MagazineItem;
+import net.dante.items.analog.BookItem;
+import net.dante.items.analog.MagazineItem;
 import net.dante.users.SuspendedUser;
 import net.dante.users.User;
 

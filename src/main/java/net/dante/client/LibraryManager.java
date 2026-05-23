@@ -6,9 +6,9 @@ Innehåller metoder som hämtar data, listar data, och lägger till data i syste
 import java.util.ArrayList;
 import java.util.Collections;
 
-import net.dante.items.BookItem;
 import net.dante.items.LibraryItem;
-import net.dante.items.MagazineItem;
+import net.dante.items.analog.BookItem;
+import net.dante.items.analog.MagazineItem;
 import net.dante.users.SuspendedUser;
 import net.dante.users.User;
 
