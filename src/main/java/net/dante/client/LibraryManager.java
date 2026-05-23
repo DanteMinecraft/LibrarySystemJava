@@ -115,7 +115,7 @@ public class LibraryManager {
 
         // update availability in system
         foundItem.setAvailable(false);
-        
+
         if (foundItem instanceof BookItem book) {
             gsonHandler.updateBook(book);
 
@@ -165,23 +165,29 @@ public class LibraryManager {
             return;
         }
 
-        // create loan logic
-        Loans oldLoan = new Loans(
-                foundUser.getUserId(),
-                foundItem.getId());
+        Loans foundLoan = loans.stream()
+                .filter(l -> l.getUserId().equals(foundUser.getUserId()))
+                .filter(l -> l.getItemId().equals(foundItem.getId()))
+                .findFirst()
+                .orElse(null);
 
-        loans.remove(oldLoan);
-        gsonHandler.deleteLoan(oldLoan.getId());
+        if (foundLoan == null) {
+            IO.println("Inget lån hittades.");
+            return;
+        }
+
+        loans.remove(foundLoan);
+        gsonHandler.deleteLoan(foundLoan.getId());
 
         // update availability in system
         foundItem.setAvailable(true);
-        
+
         if (foundItem instanceof BookItem book) {
             gsonHandler.updateBook(book);
 
         } else if (foundItem instanceof MagazineItem magazine) {
             gsonHandler.updateMagazine(magazine);
-            
+
         } else if (foundItem instanceof MediaItem media) {
             gsonHandler.updateMedia(media);
         }
