@@ -19,10 +19,16 @@ public class MediaItem extends LibraryItem {
         this.type = type;
     }
 
+    /** 
+     * @return String
+     */
     public String getType() {
         return type;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Typ: " + type + "\nTitel: " + getTitle() + "\nGenre: " + genre + "\nArtist: " + artist

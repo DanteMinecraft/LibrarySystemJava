@@ -34,6 +34,9 @@ public class GsonHandler {
     /**
      * @return ArrayList<Loans>
      */
+    /** 
+     * @return ArrayList<Loans>
+     */
     public ArrayList<Loans> fetchLoans() {
         HttpResponse<String> response;
         try {
@@ -53,6 +56,9 @@ public class GsonHandler {
     }
 
     /**
+     * @return ArrayList<BookItem>
+     */
+    /** 
      * @return ArrayList<BookItem>
      */
     public ArrayList<BookItem> fetchBooks() {
@@ -76,6 +82,9 @@ public class GsonHandler {
     /**
      * @return ArrayList<MagazineItem>
      */
+    /** 
+     * @return ArrayList<MagazineItem>
+     */
     public ArrayList<MagazineItem> fetchMagazines() {
         HttpResponse<String> response;
         try {
@@ -95,6 +104,9 @@ public class GsonHandler {
         }
     }
 
+    /** 
+     * @return ArrayList<MediaItem>
+     */
     public ArrayList<MediaItem> fetchMedia() {
         HttpResponse<String> response;
         try {
@@ -113,6 +125,9 @@ public class GsonHandler {
     }
 
     /**
+     * @return ArrayList<User>
+     */
+    /** 
      * @return ArrayList<User>
      */
     public ArrayList<User> fetchUsers() {
@@ -134,6 +149,9 @@ public class GsonHandler {
     }
 
     /**
+     * @return ArrayList<SuspendedUser>
+     */
+    /** 
      * @return ArrayList<SuspendedUser>
      */
     public ArrayList<SuspendedUser> fetchSuspendedUsers() {
@@ -164,6 +182,10 @@ public class GsonHandler {
      * @param endpoint
      * @param data
      */
+    /** 
+     * @param endpoint
+     * @param data
+     */
     private void toJson(String endpoint, Object data) {
         try {
             String json = gson.toJson(data);
@@ -182,11 +204,17 @@ public class GsonHandler {
     /**
      * @param loans
      */
+    /** 
+     * @param loan
+     */
     public void uploadLoan(Loans loan) {
         toJson("/loans", loan);
     }
 
     /**
+     * @param book
+     */
+    /** 
      * @param book
      */
     public void uploadBook(BookItem book) {
@@ -196,11 +224,17 @@ public class GsonHandler {
     /**
      * @param magazine
      */
+    /** 
+     * @param magazine
+     */
     public void uploadMagazine(MagazineItem magazine) {
         toJson("/magazines", magazine);
     }
 
     /**
+     * @param media
+     */
+    /** 
      * @param media
      */
     public void uploadMedia(MediaItem media) {
@@ -210,11 +244,17 @@ public class GsonHandler {
     /**
      * @param user
      */
+    /** 
+     * @param user
+     */
     public void uploadUser(User user) {
         toJson("/users", user);
     }
 
     /**
+     * @param suspendedUser
+     */
+    /** 
      * @param suspendedUser
      */
     public void uploadSuspendedUser(SuspendedUser suspendedUser) {
@@ -225,6 +265,9 @@ public class GsonHandler {
     // UPDATE METHODS
     // ===============
 
+    /** 
+     * @param book
+     */
     public void updateBook(BookItem book) {
         try {
 
@@ -239,6 +282,9 @@ public class GsonHandler {
         }
     }
 
+    /** 
+     * @param magazine
+     */
     public void updateMagazine(MagazineItem magazine) {
         try {
 
@@ -253,6 +299,9 @@ public class GsonHandler {
         }
     }
 
+    /** 
+     * @param media
+     */
     public void updateMedia(MediaItem media) {
         try {
 
@@ -276,6 +325,9 @@ public class GsonHandler {
     /**
      * @param id
      */
+    /** 
+     * @param id
+     */
     public void deleteLoan(String id) {
         try {
             Unirest.delete(serverUrl + "/loans/" + id).asString();
@@ -289,6 +341,9 @@ public class GsonHandler {
     /**
      * @param id
      */
+    /** 
+     * @param id
+     */
     public void deleteBook(String id) {
         try {
             Unirest.delete(serverUrl + "/books/" + id).asString();
@@ -300,6 +355,9 @@ public class GsonHandler {
     /**
      * @param id
      */
+    /** 
+     * @param id
+     */
     public void deleteMagazine(String id) {
         try {
             Unirest.delete(serverUrl + "/magazines/" + id).asString();
@@ -309,6 +367,9 @@ public class GsonHandler {
     }
 
     /**
+     * @param id
+     */
+    /** 
      * @param id
      */
     public void deleteMedia(String id) {
@@ -324,6 +385,9 @@ public class GsonHandler {
     /**
      * @param userId
      */
+    /** 
+     * @param userId
+     */
     public void deleteUser(String userId) {
         try {
 
@@ -335,6 +399,9 @@ public class GsonHandler {
     }
 
     /**
+     * @param suspendedId
+     */
+    /** 
      * @param suspendedId
      */
     public void deleteSuspendedUser(String suspendedId) {

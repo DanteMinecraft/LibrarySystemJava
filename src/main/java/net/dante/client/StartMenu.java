@@ -10,6 +10,9 @@ public class StartMenu {
         this.manager = manager;
     }
 
+    /** 
+     * @param (IO.readln()
+     */
     public void ShowMenu() { //TODO: Gör att man kan välja att lista endast en sorts föremål i submeny
 
         IO.println("""
