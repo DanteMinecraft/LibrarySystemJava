@@ -1,5 +1,7 @@
 package net.dante.users;
 
+// klass som har hand om all data för users
+
 import com.google.gson.annotations.SerializedName;
 
 public class User implements Comparable<User> {
@@ -23,10 +25,16 @@ public class User implements Comparable<User> {
     /** 
      * @return String
      */
+    /** 
+     * @return String
+     */
     public String getUserId() {
         return userId;
     }
 
+    /** 
+     * @return String
+     */
     /** 
      * @return String
      */
@@ -37,10 +45,16 @@ public class User implements Comparable<User> {
     /** 
      * @return String
      */
+    /** 
+     * @return String
+     */
     public String getUserEmail() {
         return userEmail;
     }
     
+    /** 
+     * @return String
+     */
     /** 
      * @return String
      */
@@ -49,6 +63,10 @@ public class User implements Comparable<User> {
         return "Användarnamn: " + userName + "\nMejladress: " + userEmail + "\nAnvändarens ID i system: " + userId + "\n";
     }
 
+    /** 
+     * @param other
+     * @return int
+     */
     /** 
      * @param other
      * @return int

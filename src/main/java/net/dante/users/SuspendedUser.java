@@ -1,5 +1,7 @@
 package net.dante.users;
 
+// klass som tar hand om all data om suspended users (bannade användare)
+
 import com.google.gson.annotations.SerializedName;
 
 public class SuspendedUser {
@@ -20,10 +22,16 @@ public class SuspendedUser {
     /** 
      * @return String
      */
+    /** 
+     * @return String
+     */
     public String getSuspendedId() {
         return suspendedId;
     }
 
+    /** 
+     * @return String
+     */
     /** 
      * @return String
      */
@@ -34,10 +42,16 @@ public class SuspendedUser {
     /** 
      * @return String
      */
+    /** 
+     * @return String
+     */
     public String getReason() {
         return reason;
     }
 
+    /** 
+     * @return String
+     */
     /** 
      * @return String
      */

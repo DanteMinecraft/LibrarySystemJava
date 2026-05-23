@@ -1,5 +1,7 @@
 package net.dante.client;
 
+// Klass som hanterar variabler och konstrutkor för lån
+
 public class Loans {
 
     private String id;

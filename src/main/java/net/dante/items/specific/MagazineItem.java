@@ -1,5 +1,7 @@
 package net.dante.items.specific;
 
+// child-klass till LibraryItem med specifika värden för magasin
+
 import net.dante.items.LibraryItem;
 
 public class MagazineItem extends LibraryItem{
@@ -15,6 +17,9 @@ public class MagazineItem extends LibraryItem{
         this.category = category;
     }
 
+    /** 
+     * @return String
+     */
     /** 
      * @return String
      */

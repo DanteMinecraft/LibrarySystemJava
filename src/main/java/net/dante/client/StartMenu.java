@@ -1,6 +1,6 @@
 package net.dante.client;
 
-/*Klass som innehåller programmets huvudmeny*/
+/*Klass som innehåller programmets huvudmeny och vissa submenyer*/
 
 public class StartMenu {
 

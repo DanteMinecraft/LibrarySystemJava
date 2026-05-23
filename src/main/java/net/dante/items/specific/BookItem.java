@@ -1,5 +1,7 @@
 package net.dante.items.specific;
 
+// child-klass till LibraryItem med specifika värden för böcker
+
 import net.dante.items.LibraryItem;
 
 public class BookItem extends LibraryItem {
@@ -15,6 +17,9 @@ public class BookItem extends LibraryItem {
         this.pages = pages;
     }
 
+    /** 
+     * @return String
+     */
     public String getAuthor() {
         return author;
     }

@@ -1,5 +1,7 @@
 package net.dante.items;
 
+// child-klass till LibraryItem med specifika värden för olika typer av media
+
 public class MediaItem extends LibraryItem {
 
     private String type;
