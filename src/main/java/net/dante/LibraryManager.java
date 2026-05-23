@@ -194,6 +194,12 @@ public class LibraryManager {
         IO.println("Email på användaren du söker: ");
         String searchedEmail = IO.readln();
 
-        users.stream().filter(i -> i.getUserEmail().contains(searchedEmail)).forEach(i -> IO.println("\n" + i)); //print for all found items
+        users.stream().filter(u -> u.getUserEmail().contains(searchedEmail)).forEach(u -> 
+            {
+                IO.print(u);
+                suspendedUsers.stream().filter(su -> su.getUserId().equals(u.getUserId())).forEach(su -> IO.print("STATUS: Användaren får ej låna någonting just nu då hen är avstängd i systemet med orsaken: " + su.getReason() + "\n\n")); //print for all found items
+            }
+        );
     }
+
 }

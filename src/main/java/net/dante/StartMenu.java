@@ -20,7 +20,7 @@ public class StartMenu {
                         4. Registrera ny användare
                         5. Stäng av användare
                         6. Sök efter föremål
-                        7. Sök efter användare
+                        7. Sök efter användare och deras status
                         8. Avsluta programmet
                     """);
             manager.refreshData();
