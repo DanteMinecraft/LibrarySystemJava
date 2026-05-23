@@ -10,11 +10,11 @@ public class StartMenu {
         this.manager = manager;
     }
 
-    public void ShowMenu() {
+    public void ShowMenu() { //TODO: Gör att man kan välja att lista endast en sorts föremål i submeny
 
         IO.println("""
                         -----Biblioketsystem-----
-                        1. Lista bibliotekets böcker och magasin
+                        1. Lista alla föremål
                         2. Lista alla användare samt avstängda användare
                         3. Registrera nytt föremål
                         4. Registrera ny användare

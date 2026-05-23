@@ -132,8 +132,6 @@ public class LibraryManager {
 
         if (itemType.equals("book")) {
 
-            // Logic for adding book
-
             IO.println("Titel på bok: ");
             String newBookTitle = IO.readln();
             IO.println("Författare: ");
@@ -150,8 +148,6 @@ public class LibraryManager {
             gsonHandler.uploadBook(newBook); // upload to server
 
         } else if (itemType.equals("magazine")) {
-
-            // Logic for adding magazine
 
             IO.println("Titel på magasin: ");
             String newMagazineTitle = IO.readln();
@@ -265,10 +261,6 @@ public class LibraryManager {
         String searchedItem = IO.readln();
 
         allItems.stream().filter(i -> i.getTitle().contains(searchedItem)).forEach(i -> IO.println("\n" + i)); // print
-                                                                                                               // for
-                                                                                                               // all
-                                                                                                               // found
-                                                                                                               // items
     }
 
     // users
@@ -293,38 +285,62 @@ public class LibraryManager {
 
     public void deleteLibraryItem() {
 
-        // Boolean for type of item. if true = book, if false = magazine.
-        boolean itemType;
+        String itemType = null;
 
         while (true) {
 
             IO.println("""
-                        Vilken typ av föremål vill du ta bort från systemet?
-                        1. Bok
-                        2. Magasin
+                    Vilken typ av föremål vill du ta bort från systemet?
+                    1. Bok
+                    2. Magasin
+                    3. Film
+                    4. Spel
+                    5. Album
                     """);
 
             String userChoice = IO.readln();
 
-            // Check if book or magazine, if not valid input ask again
-            if (userChoice.equals("1")) {
-                itemType = true;
-                IO.println("Du har valt att ta bort en bok i systemet. Vänligen ange följande information:");
-                break;
+            switch (userChoice) {
 
-            } else if (userChoice.equals("2")) {
-                itemType = false;
-                IO.println("Du har valt att ta bort ett magasin i systemet. Vänligen ange följande information:");
-                break;
+                case "1" -> {
+                    itemType = "book";
+                    IO.println("Du har valt att ta bort en bok.");
+                    break;
+                }
 
-            } else {
-                IO.println("Ogiltigt val, försök igen.");
+                case "2" -> {
+                    itemType = "magazine";
+                    IO.println("Du har valt att ta bort ett magasin.");
+                    break;
+                }
+
+                case "3" -> {
+                    itemType = "movie";
+                    IO.println("Du har valt att ta bort en film.");
+                    break;
+                }
+
+                case "4" -> {
+                    itemType = "game";
+                    IO.println("Du har valt att ta bort ett spel.");
+                    break;
+                }
+
+                case "5" -> {
+                    itemType = "album";
+                    IO.println("Du har valt att ta bort ett album.");
+                    break;
+                }
+
+                default -> {
+                    IO.println("Ogiltigt val, försök igen.");
+                }
             }
+
+            break;
         }
-
-        if (itemType == true) {
-
-            // Logic for removing book
+        
+        if (itemType.equals("book")) {
 
             IO.println("Titel på boken du vill ta bort: ");
             String searchedBook = IO.readln();
@@ -340,17 +356,12 @@ public class LibraryManager {
             }
 
             gsonHandler.deleteBook(foundBook.getId());
-
-            IO.println("Boken " + foundBook.getTitle() + " togs bort.");
-
             books.remove(foundBook);
             allItems.remove(foundBook);
 
-        }
+            IO.println("Boken " + foundBook.getTitle() + " togs bort.");
 
-        else if (itemType == false) {
-
-            // Logic for removing magazine
+        } else if (itemType.equals("magazine")) {
 
             IO.println("Titel på magasinet du vill ta bort: ");
             String searchedMagazine = IO.readln();
@@ -366,12 +377,77 @@ public class LibraryManager {
             }
 
             gsonHandler.deleteMagazine(foundMagazine.getId());
-
-            IO.println("Magasinet " + foundMagazine.getTitle() + " togs bort.");
-
             magazines.remove(foundMagazine);
             allItems.remove(foundMagazine);
 
+            IO.println("Magasinet " + foundMagazine.getTitle() + " togs bort.");
+
+        } else if (itemType.equals("movie")) {
+
+            IO.println("Titel på filmen du vill ta bort: ");
+            String searchedMovie = IO.readln();
+
+            MediaItem foundMovie = media.stream()
+                    .filter(i -> i.getType().equals("movie"))
+                    .filter(i -> i.getTitle().equals(searchedMovie))
+                    .findFirst()
+                    .orElse(null);
+
+            if (foundMovie == null) {
+                IO.println("Ingen film med den titeln hittades.");
+                return;
+            }
+
+            gsonHandler.deleteMedia(foundMovie.getId());
+            media.remove(foundMovie);
+            allItems.remove(foundMovie);
+
+            IO.println("Filmen " + foundMovie.getTitle() + " togs bort.");
+
+        } else if (itemType.equals("game")) {
+
+            IO.println("Titel på spelet du vill ta bort: ");
+            String searchedGame = IO.readln();
+
+            MediaItem foundGame = media.stream()
+                    .filter(i -> i.getType().equals("game"))
+                    .filter(i -> i.getTitle().equals(searchedGame))
+                    .findFirst()
+                    .orElse(null);
+
+            if (foundGame == null) {
+                IO.println("Inget spel med den titeln hittades.");
+                return;
+            }
+
+            gsonHandler.deleteMedia(foundGame.getId());
+
+            media.remove(foundGame);
+            allItems.remove(foundGame);
+
+            IO.println("Spelet " + foundGame.getTitle() + " togs bort.");
+
+        } else if (itemType.equals("album")) {
+
+            IO.println("Titel på albumet du vill ta bort: ");
+            String searchedAlbum = IO.readln();
+
+            MediaItem foundAlbum = media.stream()
+                    .filter(i -> i.getType().equals("album"))
+                    .filter(i -> i.getTitle().equals(searchedAlbum))
+                    .findFirst()
+                    .orElse(null);
+
+            if (foundAlbum == null) {
+                IO.println("Inget album med den titeln hittades.");
+                return;
+            }
+
+            gsonHandler.deleteMedia(foundAlbum.getId());
+            media.remove(foundAlbum);
+            allItems.remove(foundAlbum);
+
+            IO.println("Albumet " + foundAlbum.getTitle() + " togs bort.");
         }
     }
 
