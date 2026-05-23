@@ -9,12 +9,24 @@ public class MediaItem extends LibraryItem {
     private int age;
     private int minutes;
 
-    public MediaItem(int age, String artist, String genre, int minutes, String type, String title, boolean isAvailable) {
+    public MediaItem(String title, boolean isAvailable, String type, String genre, String artist, int age,
+            int minutes) {
         super(title, isAvailable);
         this.age = age;
         this.artist = artist;
         this.genre = genre;
         this.minutes = minutes;
         this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        return "Typ: " + type + "\nTitel: " + getTitle() + "\nGenre: " + genre + "\nArtist: " + artist
+                + "\nÅldersgräns: " + age + "\nLängd: " + minutes + " minuter" + "\nFinns tillgänglig: " + isAvailable()
+                + "\n";
     }
 }

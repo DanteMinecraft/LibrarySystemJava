@@ -39,7 +39,7 @@ public class LibraryManager {
         this.books = gsonHandler.fetchBooks();
         this.magazines = gsonHandler.fetchMagazines();
         this.media = gsonHandler.fetchMedia();
-        
+
         this.users = gsonHandler.fetchUsers();
         this.suspendedUsers = gsonHandler.fetchSuspendedUsers();
 
@@ -55,7 +55,7 @@ public class LibraryManager {
     // LISTING METHODS
     // ================
 
-     // print for every item in arrays (beautiful lambda expressions :D)
+    // print for every item in arrays (beautiful lambda expressions :D)
 
     public void listLibraryItems() {
 
@@ -122,7 +122,7 @@ public class LibraryManager {
                     IO.println("Du har valt att lägga till ett album.");
                     break;
                 }
-            
+
                 default -> {
                     IO.println("Ogiltigt val, försök igen.");
                 }
@@ -136,20 +136,17 @@ public class LibraryManager {
 
             IO.println("Titel på bok: ");
             String newBookTitle = IO.readln();
-
             IO.println("Författare: ");
             String newBookAuthor = IO.readln();
-
             IO.println("Genre: ");
             String newBookGenre = IO.readln();
-
             IO.println("Antal sidor: ");
             int newBookPages = Integer.parseInt(IO.readln());
 
             BookItem newBook = new BookItem(newBookTitle, true, newBookAuthor, newBookGenre,
                     newBookPages);
-            books.add(newBook); //local book list
-            allItems.add(newBook); //local list for all items
+            books.add(newBook); // local book list
+            allItems.add(newBook); // local list for all items
             gsonHandler.uploadBook(newBook); // upload to server
 
         } else if (itemType.equals("magazine")) {
@@ -158,33 +155,64 @@ public class LibraryManager {
 
             IO.println("Titel på magasin: ");
             String newMagazineTitle = IO.readln();
-
             IO.println("Utgåva: ");
             int newMagazineIssueNumber = Integer.parseInt(IO.readln());
-
             IO.println("Publiceringsår: ");
             int newMagazinePublicationYear = Integer.parseInt(IO.readln());
-
             IO.println("Kategori: ");
             String newMagazineCategory = IO.readln();
 
             MagazineItem newMagazine = new MagazineItem(newMagazineTitle, true, newMagazineIssueNumber,
                     newMagazinePublicationYear, newMagazineCategory);
             magazines.add(newMagazine); // local magazine list
-            allItems.add(newMagazine); //local list for all items
+            allItems.add(newMagazine); // local list for all items
             gsonHandler.uploadMagazine(newMagazine); // upload to server
 
         } else if (itemType.equals("movie")) {
 
-            // Logic for adding movie
+            IO.println("Titel på film: ");
+            String newMovieTitle = IO.readln();
+            IO.println("Genre: ");
+            String newMovieGenre = IO.readln();
+            IO.println("Längd i minuter: ");
+            int newMovieLength = Integer.parseInt(IO.readln());
+            IO.println("Åldergräns på film: ");
+            int newMovieAgeLimit = Integer.parseInt(IO.readln());
+
+            MediaItem newMovie = new MediaItem(newMovieTitle, true, itemType, newMovieGenre, null, newMovieAgeLimit,
+                    newMovieLength);
+
+            media.add(newMovie);
+            allItems.add(newMovie);
+            gsonHandler.uploadMedia(newMovie);
 
         } else if (itemType.equals("game")) {
 
-            // Logic for adding game
+            IO.println("Namn på spel: ");
+            String newGameTitle = IO.readln();
+            IO.println("Genre: ");
+            String newGameGenre = IO.readln();
+            IO.println("Åldergräns på spelet: ");
+            int newGameAgeLimit = Integer.parseInt(IO.readln());
+
+            MediaItem newGame = new MediaItem(newGameTitle, true, itemType, newGameGenre, null, newGameAgeLimit, 0);
+
+            media.add(newGame);
+            allItems.add(newGame);
+            gsonHandler.uploadMedia(newGame);
 
         } else if (itemType.equals("album")) {
 
-            // Logic for adding album
+            IO.println("Namn på album: ");
+            String newAlbumTitle = IO.readln();
+            IO.println("Artist: ");
+            String newAlbumArtist = IO.readln();
+
+            MediaItem newAlbum = new MediaItem(newAlbumTitle, true, itemType, null, newAlbumArtist, 0, 0);
+
+            media.add(newAlbum);
+            allItems.add(newAlbum);
+            gsonHandler.uploadMedia(newAlbum);
 
         }
 
@@ -209,11 +237,11 @@ public class LibraryManager {
         String emailForSuspended = IO.readln();
 
         User foundUser = users.stream()
-            .filter(u -> u.getUserEmail().equals(emailForSuspended))
-            .findFirst()
-            .orElse(null);
+                .filter(u -> u.getUserEmail().equals(emailForSuspended))
+                .findFirst()
+                .orElse(null);
 
-        if(foundUser == null) {
+        if (foundUser == null) {
             IO.println("Ingen användare med den mejladressen hittades.");
             return;
         }
@@ -230,34 +258,38 @@ public class LibraryManager {
     // SEARCH METHODS
     // ==============
 
-    //items
-    
+    // items
+
     public void searchItem() {
         IO.println("Titel på föremålet du söker: ");
         String searchedItem = IO.readln();
 
-        allItems.stream().filter(i -> i.getTitle().contains(searchedItem)).forEach(i -> IO.println("\n" + i)); //print for all found items
+        allItems.stream().filter(i -> i.getTitle().contains(searchedItem)).forEach(i -> IO.println("\n" + i)); // print
+                                                                                                               // for
+                                                                                                               // all
+                                                                                                               // found
+                                                                                                               // items
     }
 
-    //users
+    // users
 
     public void searchUser() {
         IO.println("Email till användaren du söker: ");
         String searchedEmail = IO.readln();
 
-        users.stream().filter(u -> u.getUserEmail().contains(searchedEmail)).forEach(u -> 
-            {
-                IO.print(u);
-                suspendedUsers.stream().filter(su -> su.getUserId().equals(u.getUserId())).forEach(su -> IO.print("STATUS: Användaren får ej låna någonting just nu då hen är avstängd i systemet med orsaken: " + su.getReason() + "\n\n")); //print for all found items
-            }
-        );
+        users.stream().filter(u -> u.getUserEmail().contains(searchedEmail)).forEach(u -> {
+            IO.print(u);
+            suspendedUsers.stream().filter(su -> su.getUserId().equals(u.getUserId())).forEach(su -> IO.print(
+                    "STATUS: Användaren får ej låna någonting just nu då hen är avstängd i systemet med orsaken: "
+                            + su.getReason() + "\n\n")); // print for all found items
+        });
     }
 
     // ===========
     // EXTERMINATE
     // ===========
 
-    //items
+    // items
 
     public void deleteLibraryItem() {
 
@@ -298,24 +330,24 @@ public class LibraryManager {
             String searchedBook = IO.readln();
 
             BookItem foundBook = books.stream()
-            .filter(i -> i.getTitle().equals(searchedBook))
-            .findFirst()
-            .orElse(null);
+                    .filter(i -> i.getTitle().equals(searchedBook))
+                    .findFirst()
+                    .orElse(null);
 
-            if(foundBook == null) {
+            if (foundBook == null) {
                 IO.println("Ingen bok med den titeln hittades.");
                 return;
             }
 
             gsonHandler.deleteBook(foundBook.getId());
-        
+
             IO.println("Boken " + foundBook.getTitle() + " togs bort.");
 
             books.remove(foundBook);
             allItems.remove(foundBook);
 
         }
-        
+
         else if (itemType == false) {
 
             // Logic for removing magazine
@@ -324,17 +356,17 @@ public class LibraryManager {
             String searchedMagazine = IO.readln();
 
             MagazineItem foundMagazine = magazines.stream()
-            .filter(i -> i.getTitle().equals(searchedMagazine))
-            .findFirst()
-            .orElse(null);
+                    .filter(i -> i.getTitle().equals(searchedMagazine))
+                    .findFirst()
+                    .orElse(null);
 
-            if(foundMagazine == null) {
+            if (foundMagazine == null) {
                 IO.println("Inget magasin med den titeln hittades.");
                 return;
             }
 
             gsonHandler.deleteMagazine(foundMagazine.getId());
-        
+
             IO.println("Magasinet " + foundMagazine.getTitle() + " togs bort.");
 
             magazines.remove(foundMagazine);
@@ -343,33 +375,33 @@ public class LibraryManager {
         }
     }
 
-    //users
+    // users
 
     public void deleteUser() {
         IO.println("Email till användaren du vill ta bort: ");
         String searchedEmail = IO.readln();
 
         User foundUser = users.stream()
-            .filter(u -> u.getUserEmail().equals(searchedEmail))
-            .findFirst()
-            .orElse(null);
+                .filter(u -> u.getUserEmail().equals(searchedEmail))
+                .findFirst()
+                .orElse(null);
 
-        if(foundUser == null) {
+        if (foundUser == null) {
             IO.println("Ingen användare med den mejladressen hittades.");
             return;
         }
 
         SuspendedUser foundSuspendedUser = suspendedUsers.stream()
-            .filter(su -> su.getUserId().equals(foundUser.getUserId()))
-            .findFirst()
-            .orElse(null);
+                .filter(su -> su.getUserId().equals(foundUser.getUserId()))
+                .findFirst()
+                .orElse(null);
 
-        if(foundSuspendedUser != null) {
+        if (foundSuspendedUser != null) {
             gsonHandler.deleteSuspendedUser(foundSuspendedUser.getSuspendedId());
         }
 
         gsonHandler.deleteUser(foundUser.getUserId());
-        
+
         IO.println("Användaren " + foundUser.getUserName() + " togs bort.");
 
         users.remove(foundUser);
