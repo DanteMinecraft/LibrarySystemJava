@@ -1,7 +1,5 @@
 package net.dante.items;
 
-import java.util.UUID;
-
 /*En parent-klass för BookItem och MagazineItem, dvs superklassen.
 Innehåller alla gemensamma parametrar och variabler för klasserna.
 Klassen är en abstract class för att se till att inga objekt som är endast LibraryItem:s skapas,
@@ -16,7 +14,6 @@ public abstract class LibraryItem {
 
     // Constructor for LibraryItem
     public LibraryItem(String title, boolean isAvailable) {
-        this.id = UUID.randomUUID().toString();
         this.title = title;
         this.isAvailable = isAvailable;
     }

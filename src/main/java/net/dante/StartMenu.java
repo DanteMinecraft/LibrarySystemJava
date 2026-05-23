@@ -21,7 +21,7 @@ public class StartMenu {
                         5. Stäng av användare i systemet
                         6. Avsluta programmet
                     """);
-
+            manager.refreshData();
             switch (IO.readln()) {
                 case "1" -> manager.listLibraryItems();
                 case "2" -> manager.listAllUsers();

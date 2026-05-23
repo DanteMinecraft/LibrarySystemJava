@@ -15,14 +15,11 @@ public class User {
     @SerializedName("email")
     private String userEmail;
 
-    // Constructor for user
-    public User(String userId, String userName, String userEmail) {
-        this.userId = userId;
+    public User(String userName, String userEmail) {
         this.userName = userName;
         this.userEmail = userEmail;
     }
 
-    // Getters
     public String getUserId() {
         return userId;
     }

@@ -30,7 +30,7 @@ public class GsonHandler {
 
             ArrayList<BookItem> fetchedBooks = gson.fromJson(responseBody, new TypeToken<ArrayList<BookItem>>(){}.getType());
 
-            IO.println("Hämtade data för böcker\n");
+            //IO.println("Hämtade data för böcker\n");
             return fetchedBooks; // adds all the books from the fetch
 
         } catch (UnirestException e) {
@@ -47,7 +47,7 @@ public class GsonHandler {
 
             ArrayList<MagazineItem> fetchedMagazines = gson.fromJson(responseBody, new TypeToken<ArrayList<MagazineItem>>() {}.getType());
 
-            IO.println("Hämtade data för magasin\n"); // adds all magazines from fetch
+            //IO.println("Hämtade data för magasin\n"); // adds all magazines from fetch
             return fetchedMagazines;
 
         } catch (UnirestException e) {
@@ -64,7 +64,7 @@ public class GsonHandler {
 
             ArrayList<User> fetchedUsers = gson.fromJson(responseBody, new TypeToken<ArrayList<User>>() {}.getType());
 
-            IO.println("Hämtade data för users\n");
+            //IO.println("Hämtade data för users\n");
             return fetchedUsers;
 
         } catch (UnirestException e) {
@@ -81,7 +81,7 @@ public class GsonHandler {
             
             ArrayList<SuspendedUser> fetchedSuspendedUsers = gson.fromJson(responseBody, new TypeToken<ArrayList<SuspendedUser>>() {}.getType());
 
-            IO.println("Hämtade data för suspended\n");
+            //IO.println("Hämtade data för suspended\n");
             return fetchedSuspendedUsers;
 
         } catch (UnirestException e) {

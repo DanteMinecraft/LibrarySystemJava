@@ -19,6 +19,14 @@ public class LibraryManager {
 
     public LibraryManager(GsonHandler gsonHandler) {
         this.gsonHandler = gsonHandler;
+        refreshData();
+    }
+
+    // ================
+    // REFRESH
+    // ================
+
+    public void refreshData() {
         this.books = gsonHandler.fetchBooks();
         this.magazines = gsonHandler.fetchMagazines();
         this.users = gsonHandler.fetchUsers();
@@ -135,32 +143,32 @@ public class LibraryManager {
         IO.println("Användarens mejladress: ");
         String newUserEmail = IO.readln();
 
-        User newUser = new User(null, newUserName, newUserEmail);
+        User newUser = new User(newUserName, newUserEmail);
         users.add(newUser); // local
         gsonHandler.uploadUser(newUser); // upload to server
     }
 
     public void suspendUser() {
 
-        IO.println("ID på användaren som ska stängas av: ");
-        String newUserIdForSuspended = IO.readln();
+        IO.println("Email på användaren som ska stängas av: ");
+        String emailForSuspended = IO.readln();
 
-        IO.println("Anledning: ");
-        String newSuspendedUserReason = IO.readln();
-        
-        boolean removed = users.removeIf(u -> u.getUserId().equals(newUserIdForSuspended)); // Removes newly suspended user from regular user-array (beautiful lambda again)
+        User foundUser = users.stream()
+            .filter(u -> u.getUserEmail()
+            .equals(emailForSuspended))
+            .findFirst()
+            .orElse(null);
 
-        if (!removed) {
-            IO.println("Ingen användare med det ID:t hittades.");
+        if(foundUser == null) {
+            IO.println("Ingen användare med den mejladressen hittades.");
             return;
         }
 
-        SuspendedUser newSuspendedUser = new SuspendedUser(null, new User(newUserIdForSuspended, "", ""), newSuspendedUserReason);
+        IO.println("Anledning: ");
+        String newSuspendedUserReason = IO.readln();
+
+        SuspendedUser newSuspendedUser = new SuspendedUser(foundUser.getUserId(), newSuspendedUserReason);
         suspendedUsers.add(newSuspendedUser);
         gsonHandler.uploadSuspendedUser(newSuspendedUser);
     }
-
-    // ===============
-    // UPLOAD METHODS
-    // ===============
 }
