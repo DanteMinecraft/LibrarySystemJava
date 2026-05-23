@@ -121,13 +121,73 @@ public class LibraryManager {
 
         } else if (foundItem instanceof MagazineItem magazine) {
             gsonHandler.updateMagazine(magazine);
-            
+
         } else if (foundItem instanceof MediaItem media) {
             gsonHandler.updateMedia(media);
         }
 
         IO.println(foundItem.getTitle()
                 + " lånades ut till "
+                + foundUser.getUserName());
+    }
+
+    public void returnItem() {
+
+        IO.println("Email till användaren som ska lämna tillbaka ett föremål:");
+        String searchedEmail = IO.readln();
+
+        User foundUser = users.stream()
+                .filter(u -> u.getUserEmail().equals(searchedEmail))
+                .findFirst()
+                .orElse(null);
+
+        if (foundUser == null) {
+            IO.println("Ingen användare med den emailen hittades.");
+            return;
+        }
+
+        IO.println("Titel på föremålet som " + foundUser.getUserName() + " ska lämna tillbaka:");
+
+        String itemTitle = IO.readln();
+
+        LibraryItem foundItem = allItems.stream()
+                .filter(i -> i.getTitle().equals(itemTitle))
+                .findFirst()
+                .orElse(null);
+
+        if (foundItem == null) {
+            IO.println("Inget föremål med den titeln finns registrerat i systemet.");
+            return;
+        }
+
+        if (foundItem.isAvailable()) {
+            IO.println("Föremålet har redan lämnats tillbaka.");
+            return;
+        }
+
+        // create loan logic
+        Loans oldLoan = new Loans(
+                foundUser.getUserId(),
+                foundItem.getId());
+
+        loans.remove(oldLoan);
+        gsonHandler.deleteLoan(oldLoan.getId());
+
+        // update availability in system
+        foundItem.setAvailable(true);
+        
+        if (foundItem instanceof BookItem book) {
+            gsonHandler.updateBook(book);
+
+        } else if (foundItem instanceof MagazineItem magazine) {
+            gsonHandler.updateMagazine(magazine);
+            
+        } else if (foundItem instanceof MediaItem media) {
+            gsonHandler.updateMedia(media);
+        }
+
+        IO.println(foundItem.getTitle()
+                + " har lämnats tillbaka av "
                 + foundUser.getUserName());
     }
 
