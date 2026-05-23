@@ -22,9 +22,9 @@ public class LibraryManager {
         refreshData();
     }
 
-    // ================
+    // ========
     // REFRESH
-    // ================
+    // ========
 
     public void refreshData() {
         this.books = gsonHandler.fetchBooks();
@@ -170,5 +170,19 @@ public class LibraryManager {
         SuspendedUser newSuspendedUser = new SuspendedUser(foundUser.getUserId(), newSuspendedUserReason);
         suspendedUsers.add(newSuspendedUser);
         gsonHandler.uploadSuspendedUser(newSuspendedUser);
+    }
+
+    // Search methods
+
+    //items
+    
+    public void searchItem() {
+
+    }
+
+    //users
+
+    public void searchUser() {
+        
     }
 }

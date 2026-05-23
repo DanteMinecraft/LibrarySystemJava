@@ -16,10 +16,12 @@ public class StartMenu {
                         -----Biblioketsystem-----
                         1. Lista bibliotekets böcker och magasin
                         2. Lista alla användare samt avstängda användare
-                        3. Registrera nytt föremål i systemet
-                        4. Registrera ny användare i systemet
-                        5. Stäng av användare i systemet
-                        6. Avsluta programmet
+                        3. Registrera nytt föremål
+                        4. Registrera ny användare
+                        5. Stäng av användare
+                        6. Sök efter föremål
+                        7. Sök efter användare
+                        8. Avsluta programmet
                     """);
             manager.refreshData();
             switch (IO.readln()) {
@@ -28,7 +30,9 @@ public class StartMenu {
                 case "3" -> manager.addLibraryItem();
                 case "4" -> manager.addUser();
                 case "5" -> manager.suspendUser();
-                case "6" -> {
+                case "6" -> manager.searchItem();
+                case "7" -> manager.searchUser();
+                case "8" -> {
                     IO.println("Avslutar programmet...");
                     System.exit(0);
                 }
