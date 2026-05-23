@@ -6,6 +6,7 @@ Innehåller metoder som hämtar data, listar data, och lägger till data i syste
 import java.util.ArrayList;
 import java.util.Collections;
 
+import net.dante.interfaces.StorageInterace;
 import net.dante.items.LibraryItem;
 import net.dante.items.MediaItem;
 import net.dante.items.specific.BookItem;
@@ -13,7 +14,7 @@ import net.dante.items.specific.MagazineItem;
 import net.dante.users.SuspendedUser;
 import net.dante.users.User;
 
-public class LibraryManager {
+public class LibraryManager implements StorageInterace{
 
     private ArrayList<BookItem> books;
     private ArrayList<MagazineItem> magazines;
