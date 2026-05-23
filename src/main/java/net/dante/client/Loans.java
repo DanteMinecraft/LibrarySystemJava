@@ -7,8 +7,7 @@ public class Loans {
     private String userId;
     private String itemId;
 
-    public Loans(String id, String itemId, String userId) {
-        this.id = id;
+    public Loans(String itemId, String userId) {
         this.itemId = itemId;
         this.userId = userId;
     }
