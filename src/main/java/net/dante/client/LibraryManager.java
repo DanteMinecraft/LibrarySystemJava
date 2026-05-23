@@ -629,4 +629,35 @@ public class LibraryManager {
         users.remove(foundUser);
         suspendedUsers.remove(foundSuspendedUser);
     }
+
+    // ===================
+    // STATISTIC & STREAMS
+    // ===================
+
+    public void countBooksByAuthor() {
+        IO.println("Ange författare: ");
+        String searchedAuthor = IO.readln();
+
+        long amount = books.stream()
+            .filter(b -> b.getAuthor().equalsIgnoreCase(searchedAuthor))
+            .count();
+
+        IO.println(searchedAuthor + " har skrivit " + amount + " av böckerna i biblioteket.");
+    }
+
+    public void listAllItems() {
+
+        IO.println("\nAlla föremål:");
+
+        allItems.stream()
+                .map(i -> i.getTitle())
+                .forEach(title -> IO.println(title));
+    }
+
+    public void sortBooksByAuthor() {
+        books.stream()
+                .sorted((b1, b2) ->
+            b1.getAuthor().compareToIgnoreCase(b2.getAuthor()))
+            .forEach(b -> IO.print(b));
+    }
 }

@@ -23,7 +23,7 @@ public class StartMenu {
                     4. Sök efter föremål
                     5. Ta bort föremål
                     6. Utlåning
-                    7. Statistik (kommande)
+                    7. Statistik
                     8. Avsluta programmet
                 """);
         manager.refreshData();
@@ -34,7 +34,7 @@ public class StartMenu {
                 case "4" -> manager.searchItem();
                 case "5" -> manager.deleteLibraryItem();
                 case "6" -> ShowLoanMenu();
-                case "7" -> IO.println("Placeholder");
+                case "7" -> ShowStatisticsMenu();
                 case "8" -> {
                     IO.println("Avslutar programmet...");
                     System.exit(0);
@@ -73,6 +73,21 @@ public class StartMenu {
             case "1" -> manager.borrowItem();
             case "2" -> manager.returnItem();
             case "3" -> ShowMenu();
+        }
+    }
+    public void ShowStatisticsMenu() {
+        IO.println("""
+                -----Statistik-----
+                    1. Lista alla föremål
+                    2. Sortera böcker efter författare
+                    3. Räkna andelen böcker av specifik författare
+                    3. Tillbaka
+                """);
+        switch (IO.readln()) {
+            case "1" -> manager.listAllItems();
+            case "2" -> manager.sortBooksByAuthor();
+            case "3" -> manager.countBooksByAuthor();
+            case "4" -> ShowMenu();
         }
     }
 }

@@ -15,6 +15,10 @@ public class BookItem extends LibraryItem {
         this.pages = pages;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
     /** 
      * @return String
      */
