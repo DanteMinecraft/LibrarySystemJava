@@ -27,12 +27,11 @@ public class GsonHandler {
         this.serverUrl = serverUrl;
     }
 
-    //===============
-    //FETCH METHODS
-    //===============
+    // ===============
+    // FETCH METHODS
+    // ===============
 
-    
-    /** 
+    /**
      * @return ArrayList<Loans>
      */
     public ArrayList<Loans> fetchLoans() {
@@ -41,9 +40,10 @@ public class GsonHandler {
             response = Unirest.get(serverUrl + "/loans").asString();
             String responseBody = response.getBody();
 
-            ArrayList<Loans> fetchedLoans = gson.fromJson(responseBody, new TypeToken<ArrayList<Loans>>(){}.getType());
+            ArrayList<Loans> fetchedLoans = gson.fromJson(responseBody, new TypeToken<ArrayList<Loans>>() {
+            }.getType());
 
-            //IO.println("Hämtade data för böcker\n");
+            // IO.println("Hämtade data för böcker\n");
             return fetchedLoans; // adds all the loans from the fetch
 
         } catch (UnirestException e) {
@@ -52,7 +52,7 @@ public class GsonHandler {
         }
     }
 
-    /** 
+    /**
      * @return ArrayList<BookItem>
      */
     public ArrayList<BookItem> fetchBooks() {
@@ -61,9 +61,10 @@ public class GsonHandler {
             response = Unirest.get(serverUrl + "/books").asString();
             String responseBody = response.getBody();
 
-            ArrayList<BookItem> fetchedBooks = gson.fromJson(responseBody, new TypeToken<ArrayList<BookItem>>(){}.getType());
+            ArrayList<BookItem> fetchedBooks = gson.fromJson(responseBody, new TypeToken<ArrayList<BookItem>>() {
+            }.getType());
 
-            //IO.println("Hämtade data för böcker\n");
+            // IO.println("Hämtade data för böcker\n");
             return fetchedBooks; // adds all the books from the fetch
 
         } catch (UnirestException e) {
@@ -72,7 +73,7 @@ public class GsonHandler {
         }
     }
 
-    /** 
+    /**
      * @return ArrayList<MagazineItem>
      */
     public ArrayList<MagazineItem> fetchMagazines() {
@@ -81,9 +82,11 @@ public class GsonHandler {
             response = Unirest.get(serverUrl + "/magazines").asString();
             String responseBody = response.getBody();
 
-            ArrayList<MagazineItem> fetchedMagazines = gson.fromJson(responseBody, new TypeToken<ArrayList<MagazineItem>>() {}.getType());
+            ArrayList<MagazineItem> fetchedMagazines = gson.fromJson(responseBody,
+                    new TypeToken<ArrayList<MagazineItem>>() {
+                    }.getType());
 
-            //IO.println("Hämtade data för magasin\n"); // adds all magazines from fetch
+            // IO.println("Hämtade data för magasin\n"); // adds all magazines from fetch
             return fetchedMagazines;
 
         } catch (UnirestException e) {
@@ -98,7 +101,8 @@ public class GsonHandler {
             response = Unirest.get(serverUrl + "/media").asString();
             String responseBody = response.getBody();
 
-            ArrayList<MediaItem> fetchedMedia = gson.fromJson(responseBody, new TypeToken<ArrayList<MediaItem>>() {}.getType());
+            ArrayList<MediaItem> fetchedMedia = gson.fromJson(responseBody, new TypeToken<ArrayList<MediaItem>>() {
+            }.getType());
 
             return fetchedMedia;
 
@@ -107,8 +111,8 @@ public class GsonHandler {
             return new ArrayList<>();
         }
     }
-    
-    /** 
+
+    /**
      * @return ArrayList<User>
      */
     public ArrayList<User> fetchUsers() {
@@ -117,9 +121,10 @@ public class GsonHandler {
             response = Unirest.get(serverUrl + "/users").asString();
             String responseBody = response.getBody();
 
-            ArrayList<User> fetchedUsers = gson.fromJson(responseBody, new TypeToken<ArrayList<User>>() {}.getType());
+            ArrayList<User> fetchedUsers = gson.fromJson(responseBody, new TypeToken<ArrayList<User>>() {
+            }.getType());
 
-            //IO.println("Hämtade data för users\n");
+            // IO.println("Hämtade data för users\n");
             return fetchedUsers;
 
         } catch (UnirestException e) {
@@ -128,7 +133,7 @@ public class GsonHandler {
         }
     }
 
-    /** 
+    /**
      * @return ArrayList<SuspendedUser>
      */
     public ArrayList<SuspendedUser> fetchSuspendedUsers() {
@@ -136,10 +141,12 @@ public class GsonHandler {
         try {
             response = Unirest.get(serverUrl + "/suspended").asString();
             String responseBody = response.getBody();
-            
-            ArrayList<SuspendedUser> fetchedSuspendedUsers = gson.fromJson(responseBody, new TypeToken<ArrayList<SuspendedUser>>() {}.getType());
 
-            //IO.println("Hämtade data för suspended\n");
+            ArrayList<SuspendedUser> fetchedSuspendedUsers = gson.fromJson(responseBody,
+                    new TypeToken<ArrayList<SuspendedUser>>() {
+                    }.getType());
+
+            // IO.println("Hämtade data för suspended\n");
             return fetchedSuspendedUsers;
 
         } catch (UnirestException e) {
@@ -148,12 +155,12 @@ public class GsonHandler {
         }
     }
 
-    //===============
-    //UPLOAD METHODS
-    //===============
+    // ===============
+    // UPLOAD METHODS
+    // ===============
 
     // helper for uploading stuff
-    /** 
+    /**
      * @param endpoint
      * @param data
      */
@@ -161,9 +168,9 @@ public class GsonHandler {
         try {
             String json = gson.toJson(data);
             Unirest.post(serverUrl + endpoint)
-            .header("Content-type", "application/json")
-            .body(json)
-            .asString();
+                    .header("Content-type", "application/json")
+                    .body(json)
+                    .asString();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,55 +179,101 @@ public class GsonHandler {
 
     // individual uploders
 
-    /** 
+    /**
      * @param loans
      */
     public void uploadLoan(Loans loan) {
         toJson("/loans", loan);
     }
 
-    /** 
+    /**
      * @param book
      */
     public void uploadBook(BookItem book) {
         toJson("/books", book);
     }
 
-    /** 
+    /**
      * @param magazine
      */
     public void uploadMagazine(MagazineItem magazine) {
         toJson("/magazines", magazine);
     }
 
-    /** 
+    /**
      * @param media
      */
     public void uploadMedia(MediaItem media) {
         toJson("/media", media);
     }
 
-    /** 
+    /**
      * @param user
      */
     public void uploadUser(User user) {
         toJson("/users", user);
     }
 
-    /** 
+    /**
      * @param suspendedUser
      */
     public void uploadSuspendedUser(SuspendedUser suspendedUser) {
         toJson("/suspended", suspendedUser);
     }
 
-    //===============
-    //DELETE METHODS
-    //===============
+    // ===============
+    // UPDATE METHODS
+    // ===============
+
+    public void updateBook(BookItem book) {
+        try {
+
+            String json = gson.toJson(book);
+            Unirest.post(serverUrl + "/books/" + book.getId())
+                    .header("Content-type", "application/json")
+                    .body(json)
+                    .asString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateMagazine(MagazineItem magazine) {
+        try {
+
+            String json = gson.toJson(magazine);
+            Unirest.post(serverUrl + "/magazines/" + magazine.getId())
+                    .header("Content-type", "application/json")
+                    .body(json)
+                    .asString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateMedia(MediaItem media) {
+        try {
+
+            String json = gson.toJson(media);
+            Unirest.post(serverUrl + "/media/" + media.getId())
+                    .header("Content-type", "application/json")
+                    .body(json)
+                    .asString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ===============
+    // DELETE METHODS
+    // ===============
 
     // for loan
 
-    /** 
+    /**
      * @param id
      */
     public void deleteLoan(String id) {
@@ -233,7 +286,7 @@ public class GsonHandler {
 
     // items
 
-    /** 
+    /**
      * @param id
      */
     public void deleteBook(String id) {
@@ -244,7 +297,7 @@ public class GsonHandler {
         }
     }
 
-    /** 
+    /**
      * @param id
      */
     public void deleteMagazine(String id) {
@@ -255,7 +308,7 @@ public class GsonHandler {
         }
     }
 
-    /** 
+    /**
      * @param id
      */
     public void deleteMedia(String id) {
@@ -268,12 +321,12 @@ public class GsonHandler {
 
     // users
 
-    /** 
+    /**
      * @param userId
      */
     public void deleteUser(String userId) {
         try {
-            
+
             Unirest.delete(serverUrl + "/users/" + userId).asString();
 
         } catch (Exception e) {
@@ -281,7 +334,7 @@ public class GsonHandler {
         }
     }
 
-    /** 
+    /**
      * @param suspendedId
      */
     public void deleteSuspendedUser(String suspendedId) {

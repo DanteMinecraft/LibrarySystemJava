@@ -25,7 +25,6 @@ public class LibraryManager {
 
     private ArrayList<Loans> loans;
 
-
     GsonHandler gsonHandler;
 
     public LibraryManager(GsonHandler gsonHandler) {
@@ -45,12 +44,91 @@ public class LibraryManager {
         this.users = gsonHandler.fetchUsers();
         this.suspendedUsers = gsonHandler.fetchSuspendedUsers();
 
+        this.loans = gsonHandler.fetchLoans();
+
         // new list (polymorphism)
         this.allItems = new ArrayList<>();
 
         allItems.addAll(books);
         allItems.addAll(magazines);
         allItems.addAll(media);
+    }
+
+    // ================
+    // LOAN METHODS
+    // ================
+
+    public void borrowItem() {
+
+        IO.println("Email till användaren som ska låna:");
+        String searchedEmail = IO.readln();
+
+        User foundUser = users.stream()
+                .filter(u -> u.getUserEmail().equals(searchedEmail))
+                .findFirst()
+                .orElse(null);
+
+        if (foundUser == null) {
+            IO.println("Ingen användare med den emailen hittades.");
+            return;
+        }
+
+        SuspendedUser suspendedUser = suspendedUsers.stream()
+                .filter(su -> su.getUserId().equals(foundUser.getUserId()))
+                .findFirst()
+                .orElse(null);
+
+        if (suspendedUser != null) {
+
+            IO.println("Användaren är avstängd och får inte låna något just nu.");
+            IO.println("Anledning: " + suspendedUser.getReason());
+
+            return;
+        }
+
+        IO.println("Titel på föremålet som " + foundUser.getUserName() + " ska låna:");
+
+        String itemTitle = IO.readln();
+
+        LibraryItem foundItem = allItems.stream()
+                .filter(i -> i.getTitle().equals(itemTitle))
+                .findFirst()
+                .orElse(null);
+
+        if (foundItem == null) {
+            IO.println("Inget föremål med den titeln hittades.");
+            return;
+        }
+
+        if (!foundItem.isAvailable()) {
+            IO.println("Föremålet är redan utlånat.");
+            return;
+        }
+
+        // create loan logic
+        Loans newLoan = new Loans(
+                foundUser.getUserId(),
+                foundItem.getId());
+
+        loans.add(newLoan);
+        gsonHandler.uploadLoan(newLoan);
+
+        // update availability in system
+        foundItem.setAvailable(false);
+        
+        if (foundItem instanceof BookItem book) {
+            gsonHandler.updateBook(book);
+
+        } else if (foundItem instanceof MagazineItem magazine) {
+            gsonHandler.updateMagazine(magazine);
+            
+        } else if (foundItem instanceof MediaItem media) {
+            gsonHandler.updateMedia(media);
+        }
+
+        IO.println(foundItem.getTitle()
+                + " lånades ut till "
+                + foundUser.getUserName());
     }
 
     // ================
@@ -341,7 +419,7 @@ public class LibraryManager {
 
             break;
         }
-        
+
         if (itemType.equals("book")) {
 
             IO.println("Titel på boken du vill ta bort: ");
