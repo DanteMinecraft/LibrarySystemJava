@@ -1,5 +1,9 @@
 package net.dante;
 
+/*
+    HANTERAR ALLA GSON-HÄNDELSER I PROGRAMMET
+*/
+
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
