@@ -81,7 +81,7 @@ public class StartMenu {
                     1. Lista alla föremål
                     2. Sortera böcker efter författare
                     3. Räkna andelen böcker av specifik författare
-                    3. Tillbaka
+                    4. Tillbaka
                 """);
         switch (IO.readln()) {
             case "1" -> manager.listAllItems();
