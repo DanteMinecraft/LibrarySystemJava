@@ -229,7 +229,7 @@ public class GsonHandler {
         try {
 
             String json = gson.toJson(book);
-            Unirest.post(serverUrl + "/books/" + book.getId())
+            Unirest.put(serverUrl + "/books/" + book.getId())
                     .header("Content-type", "application/json")
                     .body(json)
                     .asString();
@@ -243,7 +243,7 @@ public class GsonHandler {
         try {
 
             String json = gson.toJson(magazine);
-            Unirest.post(serverUrl + "/magazines/" + magazine.getId())
+            Unirest.put(serverUrl + "/magazines/" + magazine.getId())
                     .header("Content-type", "application/json")
                     .body(json)
                     .asString();
@@ -257,7 +257,7 @@ public class GsonHandler {
         try {
 
             String json = gson.toJson(media);
-            Unirest.post(serverUrl + "/media/" + media.getId())
+            Unirest.put(serverUrl + "/media/" + media.getId())
                     .header("Content-type", "application/json")
                     .body(json)
                     .asString();
