@@ -5,7 +5,7 @@ import net.dante.client.LibraryManager;
 import net.dante.client.StartMenu;
 
 /*Main-klassen för projektet. Den här klassen gör inte mycket i sig självt, utan är endast kopplad
-till andra klasser som hanterar programmets logik */
+till andra klasser som hanterar programmets huvudlogik */
 
 public class Main {
     void main() {
