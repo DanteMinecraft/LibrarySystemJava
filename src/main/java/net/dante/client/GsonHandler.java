@@ -1,4 +1,4 @@
-package net.dante;
+package net.dante.client;
 
 /*
     HANTERAR ALLA GSON-HÄNDELSER I PROGRAMMET
@@ -14,6 +14,8 @@ import kong.unirest.core.Unirest;
 import kong.unirest.core.UnirestException;
 import net.dante.items.BookItem;
 import net.dante.items.MagazineItem;
+import net.dante.users.SuspendedUser;
+import net.dante.users.User;
 
 public class GsonHandler {
 
@@ -26,6 +28,9 @@ public class GsonHandler {
 
     // Fetch Methods
 
+    /** 
+     * @return ArrayList<BookItem>
+     */
     public ArrayList<BookItem> fetchBooks() {
         HttpResponse<String> response;
         try {
@@ -43,6 +48,9 @@ public class GsonHandler {
         }
     }
 
+    /** 
+     * @return ArrayList<MagazineItem>
+     */
     public ArrayList<MagazineItem> fetchMagazines() {
         HttpResponse<String> response;
         try {
@@ -60,6 +68,9 @@ public class GsonHandler {
         }
     }
     
+    /** 
+     * @return ArrayList<User>
+     */
     public ArrayList<User> fetchUsers() {
         HttpResponse<String> response;
         try {
@@ -77,6 +88,9 @@ public class GsonHandler {
         }
     }
 
+    /** 
+     * @return ArrayList<SuspendedUser>
+     */
     public ArrayList<SuspendedUser> fetchSuspendedUsers() {
         HttpResponse<String> response;
         try {
@@ -97,6 +111,10 @@ public class GsonHandler {
     // Upload Method
 
     // helper for uploading stuff
+    /** 
+     * @param endpoint
+     * @param data
+     */
     private void toJson(String endpoint, Object data) {
         try {
             String json = gson.toJson(data);
@@ -112,18 +130,30 @@ public class GsonHandler {
 
     // individual uploders
 
+    /** 
+     * @param book
+     */
     public void uploadBook(BookItem book) {
         toJson("/books", book);
     }
 
+    /** 
+     * @param magazine
+     */
     public void uploadMagazine(MagazineItem magazine) {
         toJson("/magazines", magazine);
     }
 
+    /** 
+     * @param user
+     */
     public void uploadUser(User user) {
         toJson("/users", user);
     }
 
+    /** 
+     * @param suspendedUser
+     */
     public void uploadSuspendedUser(SuspendedUser suspendedUser) {
         toJson("/suspended", suspendedUser);
     }
@@ -132,6 +162,9 @@ public class GsonHandler {
 
     // items
 
+    /** 
+     * @param id
+     */
     public void deleteBook(String id) {
         try {
             Unirest.delete(serverUrl + "/books/" + id).asString();
@@ -140,6 +173,9 @@ public class GsonHandler {
         }
     }
 
+    /** 
+     * @param id
+     */
     public void deleteMagazine(String id) {
         try {
             Unirest.delete(serverUrl + "/magazines/" + id).asString();
@@ -150,6 +186,9 @@ public class GsonHandler {
 
     // users
 
+    /** 
+     * @param userId
+     */
     public void deleteUser(String userId) {
         try {
             
@@ -160,6 +199,9 @@ public class GsonHandler {
         }
     }
 
+    /** 
+     * @param suspendedId
+     */
     public void deleteSuspendedUser(String suspendedId) {
         try {
             Unirest.delete(serverUrl + "/suspended/" + suspendedId).asString();

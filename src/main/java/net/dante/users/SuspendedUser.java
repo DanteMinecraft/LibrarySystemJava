@@ -1,4 +1,4 @@
-package net.dante;
+package net.dante.users;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -17,18 +17,30 @@ public class SuspendedUser {
         this.reason = reason;
     }
 
+    /** 
+     * @return String
+     */
     public String getSuspendedId() {
         return suspendedId;
     }
 
+    /** 
+     * @return String
+     */
     public String getUserId() {
         return userId;
     }
 
+    /** 
+     * @return String
+     */
     public String getReason() {
         return reason;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "\nAnvändarens ID i system: " + userId + "\nAnledning: " + reason + "\nAvstängnings-ID i system: " + suspendedId + "\n";

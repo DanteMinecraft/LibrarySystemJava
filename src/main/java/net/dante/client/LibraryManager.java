@@ -1,4 +1,4 @@
-package net.dante;
+package net.dante.client;
 
 /*Klass som innehåller all logik i hur programmet fungerar.
 Innehåller metoder som hämtar data, listar data, och lägger till data i systemet. */
@@ -9,6 +9,8 @@ import java.util.Collections;
 import net.dante.items.BookItem;
 import net.dante.items.LibraryItem;
 import net.dante.items.MagazineItem;
+import net.dante.users.SuspendedUser;
+import net.dante.users.User;
 
 public class LibraryManager {
 

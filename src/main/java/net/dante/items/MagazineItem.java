@@ -13,6 +13,9 @@ public class MagazineItem extends LibraryItem{
         this.category = category;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Utgåva: " + issueNumber + "\nPubliceringsår: " + publishedYear + "\nKategori: "

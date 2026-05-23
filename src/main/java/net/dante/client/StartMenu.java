@@ -1,4 +1,4 @@
-package net.dante;
+package net.dante.client;
 
 /*Klass som innehåller programmets huvudmeny*/
 

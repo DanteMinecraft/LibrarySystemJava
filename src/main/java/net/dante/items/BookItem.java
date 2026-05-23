@@ -13,6 +13,9 @@ public class BookItem extends LibraryItem {
         this.pages = pages;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Författare: " + author + "\nGenre: " + genre + "\nAntal sidor: " + pages + "\nID i system: " + getId()

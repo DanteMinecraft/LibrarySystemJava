@@ -1,4 +1,4 @@
-package net.dante;
+package net.dante.users;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -20,23 +20,39 @@ public class User implements Comparable<User> {
         this.userEmail = userEmail;
     }
 
+    /** 
+     * @return String
+     */
     public String getUserId() {
         return userId;
     }
 
+    /** 
+     * @return String
+     */
     public String getUserName() {
         return userName;
     }
 
+    /** 
+     * @return String
+     */
     public String getUserEmail() {
         return userEmail;
     }
     
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Användarnamn: " + userName + "\nMejladress: " + userEmail + "\nAnvändarens ID i system: " + userId + "\n";
     }
 
+    /** 
+     * @param other
+     * @return int
+     */
     @Override
     public int compareTo(User other) {
         return this.userName.compareToIgnoreCase(other.userName);

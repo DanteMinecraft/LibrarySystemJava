@@ -18,19 +18,31 @@ public abstract class LibraryItem implements Comparable<LibraryItem>{
         this.isAvailable = isAvailable;
     }
 
+    /** 
+     * @return String
+     */
     // Getters
     public String getId() {
         return id;
     }
 
+    /** 
+     * @return String
+     */
     public String getTitle() {
         return title;
     }
 
+    /** 
+     * @return boolean
+     */
     public boolean isAvailable() {
         return isAvailable;
     }
 
+    /** 
+     * @param isAvailable
+     */
     // Setters
 
     // Planned to be linked to borrowItem() and returnItem() in the future
@@ -38,6 +50,10 @@ public abstract class LibraryItem implements Comparable<LibraryItem>{
         this.isAvailable = isAvailable;
     }
 
+    /** 
+     * @param other
+     * @return int
+     */
     @Override
     public int compareTo(LibraryItem other) {
         return this.title.compareToIgnoreCase(other.title);
