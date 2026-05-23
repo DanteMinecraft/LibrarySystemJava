@@ -25,7 +25,7 @@ public class StartMenu {
                         9. Ta bort användare
                         10. Låna föremål
                         11. Lämna tillbaka föremål
-                        10. Avsluta programmet
+                        12. Avsluta programmet
                     """);
             manager.refreshData();
             switch (IO.readln()) {
