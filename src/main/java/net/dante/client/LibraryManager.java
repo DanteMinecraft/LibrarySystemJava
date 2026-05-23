@@ -18,11 +18,13 @@ public class LibraryManager {
     private ArrayList<BookItem> books;
     private ArrayList<MagazineItem> magazines;
     private ArrayList<MediaItem> media;
+    private ArrayList<LibraryItem> allItems;
 
     private ArrayList<User> users;
     private ArrayList<SuspendedUser> suspendedUsers;
 
-    private ArrayList<LibraryItem> allItems;
+    private ArrayList<Loans> loans;
+
 
     GsonHandler gsonHandler;
 

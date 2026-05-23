@@ -31,6 +31,27 @@ public class GsonHandler {
     //FETCH METHODS
     //===============
 
+    
+    /** 
+     * @return ArrayList<Loans>
+     */
+    public ArrayList<Loans> fetchLoans() {
+        HttpResponse<String> response;
+        try {
+            response = Unirest.get(serverUrl + "/loans").asString();
+            String responseBody = response.getBody();
+
+            ArrayList<Loans> fetchedLoans = gson.fromJson(responseBody, new TypeToken<ArrayList<Loans>>(){}.getType());
+
+            //IO.println("Hämtade data för böcker\n");
+            return fetchedLoans; // adds all the loans from the fetch
+
+        } catch (UnirestException e) {
+            IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
+            return new ArrayList<>();
+        }
+    }
+
     /** 
      * @return ArrayList<BookItem>
      */
@@ -152,6 +173,13 @@ public class GsonHandler {
     // individual uploders
 
     /** 
+     * @param loans
+     */
+    public void uploadLoan(Loans loan) {
+        toJson("/loans", loan);
+    }
+
+    /** 
      * @param book
      */
     public void uploadBook(BookItem book) {
@@ -189,6 +217,19 @@ public class GsonHandler {
     //===============
     //DELETE METHODS
     //===============
+
+    // for loan
+
+    /** 
+     * @param id
+     */
+    public void deleteLoan(String id) {
+        try {
+            Unirest.delete(serverUrl + "/loans/" + id).asString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     // items
 
