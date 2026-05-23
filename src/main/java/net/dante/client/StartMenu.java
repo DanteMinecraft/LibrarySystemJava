@@ -23,6 +23,8 @@ public class StartMenu {
                         7. Sök efter användare och deras status
                         8. Ta bort föremål
                         9. Ta bort användare
+                        10. Låna föremål
+                        11. Lämna tillbaka föremål
                         10. Avsluta programmet
                     """);
             manager.refreshData();
@@ -36,7 +38,9 @@ public class StartMenu {
                 case "7" -> manager.searchUser();
                 case "8" -> manager.deleteLibraryItem();
                 case "9" -> manager.deleteUser();
-                case "10" -> {
+                case "10" -> manager.borrowItem();
+                case "11" -> manager.returnItem();
+                case "12" -> {
                     IO.println("Avslutar programmet...");
                     System.exit(0);
                 }
