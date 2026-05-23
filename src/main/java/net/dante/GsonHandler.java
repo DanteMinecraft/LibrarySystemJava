@@ -123,4 +123,18 @@ public class GsonHandler {
     public void uploadSuspendedUser(SuspendedUser suspendedUser) {
         toJson("/suspended", suspendedUser);
     }
+
+    // Remove from server
+
+    public void deleteUser(String userId) {
+        try {
+            
+            Unirest.delete(serverUrl + "/users/" + userId)
+            .asString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

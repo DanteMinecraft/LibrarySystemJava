@@ -155,8 +155,7 @@ public class LibraryManager {
         String emailForSuspended = IO.readln();
 
         User foundUser = users.stream()
-            .filter(u -> u.getUserEmail()
-            .equals(emailForSuspended))
+            .filter(u -> u.getUserEmail().equals(emailForSuspended))
             .findFirst()
             .orElse(null);
 
@@ -173,7 +172,9 @@ public class LibraryManager {
         gsonHandler.uploadSuspendedUser(newSuspendedUser);
     }
 
-    // Search methods
+    // ==============
+    // SEARCH METHODS
+    // ==============
 
     //items
     
@@ -191,7 +192,7 @@ public class LibraryManager {
     //users
 
     public void searchUser() {
-        IO.println("Email på användaren du söker: ");
+        IO.println("Email till användaren du söker: ");
         String searchedEmail = IO.readln();
 
         users.stream().filter(u -> u.getUserEmail().contains(searchedEmail)).forEach(u -> 
@@ -202,4 +203,27 @@ public class LibraryManager {
         );
     }
 
+    // ===========
+    // EXTERMINATE
+    // ===========
+
+    public void deleteUser() {
+        IO.println("Email till användaren du vill ta bort: ");
+        String searchedEmail = IO.readln();
+
+        User foundUser = users.stream()
+            .filter(u -> u.getUserEmail().equals(searchedEmail))
+            .findFirst()
+            .orElse(null);
+
+        if(foundUser == null) {
+            IO.println("Ingen användare med den mejladressen hittades.");
+            return;
+        }
+        
+        IO.println("Användaren " + foundUser.getUserName() + " togs bort.");
+
+        gsonHandler.deleteUser(foundUser.getUserId());
+        users.remove(foundUser);
+    }
 }

@@ -21,7 +21,9 @@ public class StartMenu {
                         5. Stäng av användare
                         6. Sök efter föremål
                         7. Sök efter användare och deras status
-                        8. Avsluta programmet
+                        8. Ta bort föremål
+                        9. Ta bort användare
+                        10. Avsluta programmet
                     """);
             manager.refreshData();
             switch (IO.readln()) {
@@ -32,7 +34,9 @@ public class StartMenu {
                 case "5" -> manager.suspendUser();
                 case "6" -> manager.searchItem();
                 case "7" -> manager.searchUser();
-                case "8" -> {
+                case "8" -> IO.println("placeholder");
+                case "9" -> manager.deleteUser();
+                case "10" -> {
                     IO.println("Avslutar programmet...");
                     System.exit(0);
                 }
