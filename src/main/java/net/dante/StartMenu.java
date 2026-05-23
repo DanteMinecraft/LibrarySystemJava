@@ -34,7 +34,7 @@ public class StartMenu {
                 case "5" -> manager.suspendUser();
                 case "6" -> manager.searchItem();
                 case "7" -> manager.searchUser();
-                case "8" -> IO.println("placeholder");
+                case "8" -> manager.deleteLibraryItem();
                 case "9" -> manager.deleteUser();
                 case "10" -> {
                     IO.println("Avslutar programmet...");

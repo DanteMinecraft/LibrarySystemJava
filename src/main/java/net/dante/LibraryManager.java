@@ -78,12 +78,12 @@ public class LibraryManager {
             // Check if book or magazine, if not valid input ask again
             if (userChoice.equals("1")) {
                 itemType = true;
-                IO.println("Du valde att lägga till en bok i systemet. Vänligen ange följande information:");
+                IO.println("Du har valt att lägga till en bok i systemet. Vänligen ange följande information:");
                 break;
 
             } else if (userChoice.equals("2")) {
                 itemType = false;
-                IO.println("Du valde att lägga till ett magasin i systemet. Vänligen ange följande information:");
+                IO.println("Du har valt att lägga till ett magasin i systemet. Vänligen ange följande information:");
                 break;
 
             } else {
@@ -206,6 +206,92 @@ public class LibraryManager {
     // ===========
     // EXTERMINATE
     // ===========
+
+    //items
+
+    public void deleteLibraryItem() {
+
+        // Boolean for type of item. if true = book, if false = magazine.
+        boolean itemType;
+
+        while (true) {
+
+            IO.println("""
+                        Vilken typ av föremål vill du ta bort från systemet?
+                        1. Bok
+                        2. Magasin
+                    """);
+
+            String userChoice = IO.readln();
+
+            // Check if book or magazine, if not valid input ask again
+            if (userChoice.equals("1")) {
+                itemType = true;
+                IO.println("Du har valt att ta bort en bok i systemet. Vänligen ange följande information:");
+                break;
+
+            } else if (userChoice.equals("2")) {
+                itemType = false;
+                IO.println("Du har valt att ta bort ett magasin i systemet. Vänligen ange följande information:");
+                break;
+
+            } else {
+                IO.println("Ogiltigt val, försök igen.");
+            }
+        }
+
+        if (itemType == true) {
+
+            // Logic for removing book
+
+            IO.println("Titel på boken du vill ta bort: ");
+            String searchedBook = IO.readln();
+
+            BookItem foundBook = books.stream()
+            .filter(i -> i.getTitle().equals(searchedBook))
+            .findFirst()
+            .orElse(null);
+
+            if(foundBook == null) {
+                IO.println("Ingen bok med den titeln hittades.");
+                return;
+            }
+
+            gsonHandler.deleteBook(foundBook.getId());
+        
+            IO.println("Boken " + foundBook.getTitle() + " togs bort.");
+
+            books.remove(foundBook);
+
+        }
+        
+        else if (itemType == false) {
+
+            // Logic for removing magazine
+
+            IO.println("Titel på magasinet du vill ta bort: ");
+            String searchedMagazine = IO.readln();
+
+            MagazineItem foundMagazine = magazines.stream()
+            .filter(i -> i.getTitle().equals(searchedMagazine))
+            .findFirst()
+            .orElse(null);
+
+            if(foundMagazine == null) {
+                IO.println("Inget magasin med den titeln hittades.");
+                return;
+            }
+
+            gsonHandler.deleteMagazine(foundMagazine.getId());
+        
+            IO.println("Magasinet " + foundMagazine.getTitle() + " togs bort.");
+
+            magazines.remove(foundMagazine);
+
+        }
+    }
+
+    //users
 
     public void deleteUser() {
         IO.println("Email till användaren du vill ta bort: ");

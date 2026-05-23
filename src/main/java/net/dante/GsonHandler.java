@@ -126,6 +126,26 @@ public class GsonHandler {
 
     // Remove from server
 
+    // items
+
+    public void deleteBook(String id) {
+        try {
+            Unirest.delete(serverUrl + "/books/" + id).asString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteMagazine(String id) {
+        try {
+            Unirest.delete(serverUrl + "/magazines/" + id).asString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // users
+
     public void deleteUser(String userId) {
         try {
             
