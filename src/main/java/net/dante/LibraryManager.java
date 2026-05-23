@@ -6,6 +6,7 @@ Innehåller metoder som hämtar data, listar data, och lägger till data i syste
 import java.util.ArrayList;
 
 import net.dante.items.BookItem;
+import net.dante.items.LibraryItem;
 import net.dante.items.MagazineItem;
 
 public class LibraryManager {
@@ -177,12 +178,22 @@ public class LibraryManager {
     //items
     
     public void searchItem() {
+        IO.println("Titel på föremålet du söker: ");
+        String searchedItem = IO.readln();
 
+        ArrayList<LibraryItem> items = new ArrayList<>();
+        items.addAll(books);
+        items.addAll(magazines);
+
+        items.stream().filter(i -> i.getTitle().contains(searchedItem)).forEach(i -> IO.println("\n" + i)); //print for all found items
     }
 
     //users
 
     public void searchUser() {
-        
+        IO.println("Email på användaren du söker: ");
+        String searchedEmail = IO.readln();
+
+        users.stream().filter(i -> i.getUserEmail().contains(searchedEmail)).forEach(i -> IO.println("\n" + i)); //print for all found items
     }
 }
