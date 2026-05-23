@@ -12,8 +12,9 @@ import com.google.gson.reflect.TypeToken;
 import kong.unirest.core.HttpResponse;
 import kong.unirest.core.Unirest;
 import kong.unirest.core.UnirestException;
-import net.dante.items.analog.BookItem;
-import net.dante.items.analog.MagazineItem;
+import net.dante.items.MediaItem;
+import net.dante.items.specific.BookItem;
+import net.dante.items.specific.MagazineItem;
 import net.dante.users.SuspendedUser;
 import net.dante.users.User;
 
@@ -61,6 +62,22 @@ public class GsonHandler {
 
             //IO.println("Hämtade data för magasin\n"); // adds all magazines from fetch
             return fetchedMagazines;
+
+        } catch (UnirestException e) {
+            IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");
+            return new ArrayList<>();
+        }
+    }
+
+    public ArrayList<MediaItem> fetchMedia() {
+        HttpResponse<String> response;
+        try {
+            response = Unirest.get(serverUrl + "/media").asString();
+            String responseBody = response.getBody();
+
+            ArrayList<MediaItem> fetchedMedia = gson.fromJson(responseBody, new TypeToken<ArrayList<MediaItem>>() {}.getType());
+
+            return fetchedMedia;
 
         } catch (UnirestException e) {
             IO.println("Ett fel uppstod vid hämtning av data: " + e.getLocalizedMessage() + "\n");

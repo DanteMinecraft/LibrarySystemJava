@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import net.dante.items.LibraryItem;
-import net.dante.items.analog.BookItem;
-import net.dante.items.analog.MagazineItem;
+import net.dante.items.MediaItem;
+import net.dante.items.specific.BookItem;
+import net.dante.items.specific.MagazineItem;
 import net.dante.users.SuspendedUser;
 import net.dante.users.User;
 
@@ -16,8 +17,12 @@ public class LibraryManager {
 
     private ArrayList<BookItem> books;
     private ArrayList<MagazineItem> magazines;
+    private ArrayList<MediaItem> media;
+
     private ArrayList<User> users;
     private ArrayList<SuspendedUser> suspendedUsers;
+
+    private ArrayList<LibraryItem> allItems;
 
     GsonHandler gsonHandler;
 
@@ -33,8 +38,17 @@ public class LibraryManager {
     public void refreshData() {
         this.books = gsonHandler.fetchBooks();
         this.magazines = gsonHandler.fetchMagazines();
+        this.media = gsonHandler.fetchMedia();
+        
         this.users = gsonHandler.fetchUsers();
         this.suspendedUsers = gsonHandler.fetchSuspendedUsers();
+
+        // new list (polymorphism)
+        this.allItems = new ArrayList<>();
+
+        allItems.addAll(books);
+        allItems.addAll(magazines);
+        allItems.addAll(media);
     }
 
     // ================
@@ -45,14 +59,11 @@ public class LibraryManager {
 
     public void listLibraryItems() {
 
-        Collections.sort(books);
-        Collections.sort(magazines);
+        Collections.sort(allItems);
 
-        IO.println("\nBöcker:");
-        books.forEach(b -> IO.println(b));
+        IO.println("\nAlla föremål:");
 
-        IO.println("\nMagasin:");
-        magazines.forEach(m -> IO.println(m));
+        allItems.forEach(i -> IO.println(i));
     }
 
     public void listAllUsers() {
@@ -120,7 +131,8 @@ public class LibraryManager {
 
             BookItem newBook = new BookItem(newBookTitle, true, newBookAuthor, newBookGenre,
                     newBookPages);
-            books.add(newBook); //local
+            books.add(newBook); //local book list
+            allItems.add(newBook); //local list for all items
             gsonHandler.uploadBook(newBook); // upload to server
 
         } else if (itemType == false) {
@@ -141,7 +153,8 @@ public class LibraryManager {
 
             MagazineItem newMagazine = new MagazineItem(newMagazineTitle, true, newMagazineIssueNumber,
                     newMagazinePublicationYear, newMagazineCategory);
-            magazines.add(newMagazine); // local
+            magazines.add(newMagazine); // local magazine list
+            allItems.add(newMagazine); //local list for all items
             gsonHandler.uploadMagazine(newMagazine); // upload to server
 
         }
@@ -193,11 +206,7 @@ public class LibraryManager {
         IO.println("Titel på föremålet du söker: ");
         String searchedItem = IO.readln();
 
-        ArrayList<LibraryItem> items = new ArrayList<>();
-        items.addAll(books);
-        items.addAll(magazines);
-
-        items.stream().filter(i -> i.getTitle().contains(searchedItem)).forEach(i -> IO.println("\n" + i)); //print for all found items
+        allItems.stream().filter(i -> i.getTitle().contains(searchedItem)).forEach(i -> IO.println("\n" + i)); //print for all found items
     }
 
     //users
@@ -273,6 +282,7 @@ public class LibraryManager {
             IO.println("Boken " + foundBook.getTitle() + " togs bort.");
 
             books.remove(foundBook);
+            allItems.remove(foundBook);
 
         }
         
@@ -298,6 +308,7 @@ public class LibraryManager {
             IO.println("Magasinet " + foundMagazine.getTitle() + " togs bort.");
 
             magazines.remove(foundMagazine);
+            allItems.remove(foundMagazine);
 
         }
     }

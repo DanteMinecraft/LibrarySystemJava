@@ -1,4 +1,4 @@
-package net.dante.items.analog;
+package net.dante.items.specific;
 
 import net.dante.items.LibraryItem;
 
