@@ -81,39 +81,56 @@ public class LibraryManager {
     // ADD METHODS
     // ============
 
-    // TODO: Add checks so program doesn't crash when invalid inputs
     public void addLibraryItem() {
-
-        // Boolean for type of item. if true = book, if false = magazine.
-        boolean itemType;
+        String itemType = null;
 
         while (true) {
-
             IO.println("""
-                        Vilken typ av föremål vill du lägga till i systemet?
-                        1. Bok
-                        2. Magasin
+                    Vilken typ av föremål vill du lägga till i systemet?
+                    1. Bok
+                    2. Magasin
+                    3. Film
+                    4. Spel
+                    5  Album
                     """);
 
             String userChoice = IO.readln();
 
-            // Check if book or magazine, if not valid input ask again
-            if (userChoice.equals("1")) {
-                itemType = true;
-                IO.println("Du har valt att lägga till en bok i systemet. Vänligen ange följande information:");
-                break;
-
-            } else if (userChoice.equals("2")) {
-                itemType = false;
-                IO.println("Du har valt att lägga till ett magasin i systemet. Vänligen ange följande information:");
-                break;
-
-            } else {
-                IO.println("Ogiltigt val, försök igen.");
+            switch (userChoice) {
+                case "1" -> {
+                    itemType = "book";
+                    IO.println("Du har valt att lägga till en bok.");
+                    break;
+                }
+                case "2" -> {
+                    itemType = "magazine";
+                    IO.println("Du har valt att lägga till ett magasin.");
+                    break;
+                }
+                case "3" -> {
+                    itemType = "movie";
+                    IO.println("Du har valt att lägga till en film.");
+                    break;
+                }
+                case "4" -> {
+                    itemType = "game";
+                    IO.println("Du har valt att lägga till ett spel.");
+                    break;
+                }
+                case "5" -> {
+                    itemType = "album";
+                    IO.println("Du har valt att lägga till ett album.");
+                    break;
+                }
+            
+                default -> {
+                    IO.println("Ogiltigt val, försök igen.");
+                }
             }
+            break;
         }
 
-        if (itemType == true) {
+        if (itemType.equals("book")) {
 
             // Logic for adding book
 
@@ -135,7 +152,7 @@ public class LibraryManager {
             allItems.add(newBook); //local list for all items
             gsonHandler.uploadBook(newBook); // upload to server
 
-        } else if (itemType == false) {
+        } else if (itemType.equals("magazine")) {
 
             // Logic for adding magazine
 
@@ -157,7 +174,20 @@ public class LibraryManager {
             allItems.add(newMagazine); //local list for all items
             gsonHandler.uploadMagazine(newMagazine); // upload to server
 
+        } else if (itemType.equals("movie")) {
+
+            // Logic for adding movie
+
+        } else if (itemType.equals("game")) {
+
+            // Logic for adding game
+
+        } else if (itemType.equals("album")) {
+
+            // Logic for adding album
+
         }
+
     }
 
     public void addUser() {

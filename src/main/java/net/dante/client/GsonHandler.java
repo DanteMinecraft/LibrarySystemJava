@@ -27,7 +27,9 @@ public class GsonHandler {
         this.serverUrl = serverUrl;
     }
 
-    // Fetch Methods
+    //===============
+    //FETCH METHODS
+    //===============
 
     /** 
      * @return ArrayList<BookItem>
@@ -125,7 +127,9 @@ public class GsonHandler {
         }
     }
 
-    // Upload Method
+    //===============
+    //UPLOAD METHODS
+    //===============
 
     // helper for uploading stuff
     /** 
@@ -162,6 +166,13 @@ public class GsonHandler {
     }
 
     /** 
+     * @param media
+     */
+    public void uploadMedia(MediaItem media) {
+        toJson("/media", media);
+    }
+
+    /** 
      * @param user
      */
     public void uploadUser(User user) {
@@ -175,7 +186,9 @@ public class GsonHandler {
         toJson("/suspended", suspendedUser);
     }
 
-    // Remove from server
+    //===============
+    //DELETE METHODS
+    //===============
 
     // items
 
@@ -196,6 +209,17 @@ public class GsonHandler {
     public void deleteMagazine(String id) {
         try {
             Unirest.delete(serverUrl + "/magazines/" + id).asString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** 
+     * @param id
+     */
+    public void deleteMedia(String id) {
+        try {
+            Unirest.delete(serverUrl + "/media/" + id).asString();
         } catch (Exception e) {
             e.printStackTrace();
         }
